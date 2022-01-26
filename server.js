@@ -7,6 +7,7 @@ require("./config/db");
 
 const app = express();
 
+//Cors policy
 const corsOptions = {
   origin: process.env.CLIENT_URL,
   credentials: true,
@@ -17,6 +18,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+//Lancement du serveur
 app.listen(process.env.PORT, () => {
   console.log("Listening on port " + process.env.PORT);
 });
