@@ -16,12 +16,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       require: true,
       trim: true,
-      unique: true,
       minlength: 6,
       maxlength: 25,
     },
     email: {
       type: String,
+      unique: true,
       require: true,
       validate: [isEmail],
       lowercase: true,
@@ -54,6 +54,21 @@ const userSchema = new mongoose.Schema(
       type: Date,
       require: true,
     },
+    followers: {
+      type: [String],
+    },
+    following: {
+      type: [String],
+    },
+    feed: {
+      type: [
+        {
+          tweetId: String,
+          tweetType: String,
+          timestamps: Number,
+        },
+      ],
+    },
   },
   {
     timestamps: true,
@@ -68,19 +83,17 @@ userSchema.pre("save", async function (next) {
 });
 
 //Login verification
-userSchema.statics.login = async function (email, password) {
-  try {
-    const user = await user.findOne({ email });
-    if (user) {
-      const auth = await bcrypt.compare(password, user.password);
-      if (auth) {
-        return user;
-      } else throw Error("incorrrect password");
-    } else throw Error("incorrect email");
-  } catch (err) {
-    console.log(err);
-  }
+userSchema.statics.login = async function (connectId, password) {
+  const user = await (isEmail(connectId)
+    ? this.findOne({ email: connectId })
+    : this.findOne({ userAt: connectId }));
+  if (user) {
+    const auth = await bcrypt.compare(password, user.password);
+    if (auth) {
+      return user;
+    } else throw Error("incorrrect password");
+  } else throw Error("identifiant incorrect");
 };
 
-const UserModel = mongoose.model('user', userSchema);
+const UserModel = mongoose.model("user", userSchema);
 module.exports = UserModel;

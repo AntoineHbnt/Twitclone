@@ -2,6 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+
+const userRoutes = require("./routes/user.routes");
+
 require("dotenv").config({ path: "./config/.env" });
 require("./config/db");
 
@@ -18,7 +21,15 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-//Lancement du serveur
+//Allow to access body and cookies in request
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+//routes
+app.use("/api/user", userRoutes);
+
+//Server launch
 app.listen(process.env.PORT, () => {
   console.log("Listening on port " + process.env.PORT);
 });
