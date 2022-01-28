@@ -54,11 +54,24 @@ const userSchema = new mongoose.Schema(
       type: Date,
       require: true,
     },
+    favs: {
+      type: [String],
+    },
     followers: {
       type: [String],
     },
     following: {
       type: [String],
+    },
+    notifications: {
+      type: [
+        {
+          notifType: String,
+          tweetId: String,
+          timestamps: Number,
+        },
+      ],
+      require: true,
     },
     feed: {
       type: [
