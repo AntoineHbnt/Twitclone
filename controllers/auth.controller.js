@@ -21,7 +21,6 @@ module.exports.register = async (req, res) => {
     return res.status(201).json({ user: user._id });
   } catch (err) {
     let errors = registerErrors(err);
-    console.log(err);
     return res.status(409).send({ errors });
   }
 };

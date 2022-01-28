@@ -4,6 +4,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 const userRoutes = require("./routes/user.routes");
+const tweetRoutes = require('./routes/tweet.routes')
+const notificationRoutes = require('./routes/notification.routes')
 
 require("dotenv").config({ path: "./config/.env" });
 require("./config/db");
@@ -28,6 +30,8 @@ app.use(cookieParser());
 
 //routes
 app.use("/api/user", userRoutes);
+app.use("/api/tweet", tweetRoutes);
+app.use("/api/notification", notificationRoutes);
 
 //Server launch
 app.listen(process.env.PORT, () => {
