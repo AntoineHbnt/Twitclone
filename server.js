@@ -5,7 +5,8 @@ const cors = require("cors");
 
 const userRoutes = require("./routes/user.routes");
 const tweetRoutes = require('./routes/tweet.routes')
-const notificationRoutes = require('./routes/notification.routes')
+const notificationRoutes = require('./routes/notification.routes');
+const { checkUser, requireAuth } = require("./middleware/auth.middleware");
 
 require("dotenv").config({ path: "./config/.env" });
 require("./config/db");
@@ -32,6 +33,12 @@ app.use(cookieParser());
 app.use("/api/user", userRoutes);
 app.use("/api/tweet", tweetRoutes);
 app.use("/api/notification", notificationRoutes);
+
+// jwt
+app.get('*', checkUser);
+app.get('/jwtid',requireAuth, (req, res) => {
+  res.status(200).send(res.locals.user._id)
+});
 
 //Server launch
 app.listen(process.env.PORT, () => {
