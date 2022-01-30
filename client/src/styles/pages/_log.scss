@@ -1,0 +1,106 @@
+.log-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .main{
+        display: flex;
+        max-width: 600px;
+        flex-direction: column;
+        padding: 2.25rem;
+
+        .btn{
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.87em;
+            width:100%;
+            height: 2.5rem;
+            border-radius: 100em;
+            border: solid 1px;
+            border-color: rgb(207, 217, 222);
+            background-color: #fff;
+            margin-bottom: 0.5rem;
+            padding-right: 1rem;
+            padding-left: 1rem;
+            white-space: nowrap;
+            box-sizing: border-box;
+
+            &.main-color{
+                background-color: $color-1;
+                color: $color-2;
+            }
+            
+            span{
+                overflow:hidden;
+                text-overflow: ellipsis;
+                max-width: 100%;
+            }
+
+    
+        }
+        
+        .separator{
+            display: flex;
+            align-items: center;
+            font-size: 0.9em;
+            font-weight: 400;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            width: 100%;
+            box-sizing: border-box;
+
+            .line{
+                min-width: calc((100% - 2rem)/2);
+                height: 1px;
+                background-color: rgb(239, 243, 244);
+            }
+        }
+
+        .logo{
+            align-self: flex-start;
+            height: 3rem;
+            padding-bottom: 0.75rem
+        }
+
+        .title{
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+            font-size: 4em;
+            font-weight: bolder;
+        }
+
+        .subtitle{
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: bolder;
+        }
+
+        .log-options{
+            display: flex;
+            flex-direction: column;
+            max-width: 17rem;
+        }
+
+        .conditions{
+            font-size:0.68em;
+            margin-bottom: 1.25rem;
+            color: rgb(83, 100, 113);
+        }
+
+        .login{
+            margin-top: 2.5rem;
+            font-size: 0.87em;
+            font-weight: bolder;
+
+            .btn{
+                margin-top:1.5rem;
+                font-weight: bold;
+                color: $color-1;    
+            }
+
+        }
+
+    }
+
+}
