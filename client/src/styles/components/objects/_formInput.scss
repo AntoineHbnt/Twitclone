@@ -1,0 +1,115 @@
+.input-field {
+  position: relative;
+  margin: 0.75rem 0 0.75rem 0;
+
+  &.error {
+    color: red;
+
+    .input-container {
+      color: red;
+      border-color: red;
+    }
+
+    .error-message {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 1.125rem;
+      font-size: 0.75rem;
+      padding: 0 0.5rem 0 0.5rem;
+    }
+  }
+
+  .input-container {
+    width: 100%;
+    height: 3.5rem;
+    font-weight: 1.1rem;
+    color: $color-4;
+    border: solid 1px rgb(207, 217, 222);
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+
+    &:focus-within {
+      border-color: $color-1;
+      color: $color-1;
+      .input-wrapper {
+        label {
+          transition: all 0.1s linear;
+          padding: 0.5rem 0.5rem 0 0.5rem;
+          font-size: small;
+        }
+
+        .counter {
+          transition: all 0.1s linear;
+          opacity: 100%;
+          flex: 3;
+        }
+      }
+    }
+
+    &.not-empty {
+      .input-wrapper {
+        label {
+          transition: all 0.1s linear;
+          padding: 0.5rem 0.5rem 0 0.5rem;
+          font-size: small;
+        }
+
+        .counter {
+          transition: all 0.1s linear;
+          opacity: 100%;
+          flex: 3;
+        }
+      }
+    }
+
+    .input-wrapper {
+      display: flex;
+      height: 100%;
+
+      label {
+        transition: all 0.1s linear;
+        flex: auto;
+        box-sizing: border-box;
+        overflow: hidden;
+        word-wrap: break-word;
+        text-overflow: ellipsis;
+        padding: 1.3rem 0.5rem 0 0.5rem;
+      }
+
+      .counter {
+        display: flex;
+        justify-content: flex-end;
+        font-size: small;
+        opacity: 0;
+        flex: 3;
+        padding: 0.5rem 0.5rem 0 0.5rem;
+      }
+    }
+
+    .field-container {
+      position: absolute;
+      box-sizing: border-box;
+      width: 100%;
+      top: 0;
+      margin-top: 1rem;
+      padding: 0.75rem 0.5rem 0.5rem 0.5rem;
+
+      .field {
+        width: 100%;
+        height: 100%;
+
+        input {
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0);
+          border: none;
+          appearance: none;
+          padding: 0;
+          outline-style: none;
+          resize: none;
+        }
+      }
+    }
+  }
+}

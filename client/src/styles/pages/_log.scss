@@ -3,7 +3,16 @@
     flex-direction: column;
     align-items: center;
 
+<<<<<<< Updated upstream
     .main{
+=======
+    &.modal-open{
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .main-wrapper{
+>>>>>>> Stashed changes
         display: flex;
         max-width: 600px;
         flex-direction: column;
