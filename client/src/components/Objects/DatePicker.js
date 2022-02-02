@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const DatePicker = () => {
-  const [year, setYear] = useState("2022");
-  const [month, setMonth] = useState("1");
-  const [day, setDay] = useState("1")
+const DatePicker = ({dateOfBirth, setDateOfBirth}) => {
+  const [year, setYear] = useState(2022);
+  const [month, setMonth] = useState(0);
+  const [day, setDay] = useState(1)
 
 
   const currentYear = () => {
@@ -14,23 +14,29 @@ const DatePicker = () => {
     return new Date(year, month, 0).getDate();
   };
 
+  useEffect(()=>{
+    setDateOfBirth((new Date(year, month, day).getTime()/1000).toString())
+  },[day, month, year])
+
+
+
   return (
     <div className="date-picker">
       <div className="input-select month">
         <label htmlFor="month"><span>Mois</span></label>
         <select name="month" id="month" onChange={(e) => {setMonth(e.target.value)}}>
-          <option value="1">Janvier</option>
-          <option value="2">Février</option>
-          <option value="3">Mars</option>
-          <option value="4">Avril</option>
-          <option value="5">Mai</option>
-          <option value="6">Juin</option>
-          <option value="7">Juillet</option>
-          <option value="8">Août</option>
-          <option value="9">Septembre</option>
-          <option value="10">Octobre</option>
-          <option value="11">Novembre</option>
-          <option value="12">Décembre</option>
+          <option value="0">Janvier</option>
+          <option value="1">Février</option>
+          <option value="2">Mars</option>
+          <option value="3">Avril</option>
+          <option value="4">Mai</option>
+          <option value="5">Juin</option>
+          <option value="6">Juillet</option>
+          <option value="7">Août</option>
+          <option value="8">Septembre</option>
+          <option value="9">Octobre</option>
+          <option value="10">Novembre</option>
+          <option value="11">Décembre</option>
         </select>
         <img src="./img/icons/select-arrow.svg" alt="" srcset="" />
       </div>
