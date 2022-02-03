@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Log from '../components/Log'
+import Log from './Log'
 
 const Home = () => {
 

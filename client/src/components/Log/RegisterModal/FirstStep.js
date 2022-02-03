@@ -5,7 +5,7 @@ import FormInput from "../../Objects/FormInput";
 const FirstStep = ({name, email, tel, dateOfBirth, isEmail, setDateOfBirth, setEmail, setName, setTel, setIsEmail}) => {
   return (
     <div className="form">
-      <div className="form-title">Créer votre compte</div>
+      <div className="form-title"><h3>Créer votre compte</h3></div>
       <FormInput
         label="Nom et prénom"
         id="name"
@@ -43,7 +43,7 @@ const FirstStep = ({name, email, tel, dateOfBirth, isEmail, setDateOfBirth, setE
       </span>
       <div className="birthday-container">
         <div className="title">
-          <span>Date de naissance</span>
+          <h4>Date de naissance</h4>
         </div>
         <div className="subtitle">
           <span>

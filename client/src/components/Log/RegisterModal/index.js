@@ -27,26 +27,22 @@ const RegisterModal = ({ onClose }) => {
     if (name != "" && dateOfBirth != "") {
       if (isEmail ? email != "" : tel != "") {
         setIsAvailable(true);
-      }else{
+      } else {
         setIsAvailable(false);
       }
-    }else{
+    } else {
       setIsAvailable(false);
     }
   };
 
   useEffect(() => {
     checkInput();
-
-    if (step == 4) {
-      window.alert("Vous êtes inscrit");
-      onClose();
-    }
-  }, [email, tel, name, step, isEmail]);
+    if (step == 4) onClose();
+  }, [email, tel, name, step, dateOfBirth, isEmail]);
 
   return (
-    <div className="register-container">
-      <form className="register-wrapper">
+    <div className="modal-container">
+      <form className="modal-wrapper">
         <div className="top">
           <div className="header">
             {step == 1 ? (
@@ -69,11 +65,11 @@ const RegisterModal = ({ onClose }) => {
                     alt=""
                   />
                 </div>
-                <span className="step">Étape {step}/3</span>
+                <span className="step">Étape {step < 4 ? step : "3"}/3</span>
               </div>
             )}
           </div>
-          <div className="content">
+          <div className="register-content">
             {step == 1 ? (
               <FirstStep
                 name={name}

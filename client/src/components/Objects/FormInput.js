@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-const FormInput = ({ label, id, type, maxSize, value, onChange, onClick }) => {
+const FormInput = ({ label, id, type, maxSize, value, onChange, onClick, autoComplete }) => {
   const [inputSize, setInputSize] = useState(0);
   const [isEmpty, setIsEmpty] = useState(false);
   const [firstLaunch, setFirstLaunch] = useState(true);
   const [localType, setLocalType] = useState(type);
 
-
-  const toDate = (timestamp) =>{
+  const toDate = (timestamp) => {
     let options = {
       year: "numeric",
       month: "short",
@@ -16,8 +15,7 @@ const FormInput = ({ label, id, type, maxSize, value, onChange, onClick }) => {
 
     let date = new Date(timestamp * 1000).toLocaleDateString("fr-FR", options);
     return date.toString();
-  
-  }
+  };
 
   useEffect(() => {
     const fieldContainer = document.querySelector("#" + id + "-input");
@@ -45,18 +43,21 @@ const FormInput = ({ label, id, type, maxSize, value, onChange, onClick }) => {
       <div className="input-container">
         <div className="input-wrapper">
           <label htmlFor={id}>{label}</label>
-          <div className="counter">
-            {maxSize ? (
+          {maxSize ? (
+            <div className="counter">
               <span>
                 {inputSize}/{maxSize}
               </span>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
         </div>
         <div className="field-container">
           <div className="field">
             <input
-              type={type == "password" ? localType : (type == "date" ? "text" : type)}
+              autoComplete={autoComplete ? autoComplete : ""}
+              type={
+                type == "password" ? localType : type == "date" ? "text" : type
+              }
               name={id}
               id={id}
               value={type == "date" ? toDate(value) : value}
@@ -64,7 +65,14 @@ const FormInput = ({ label, id, type, maxSize, value, onChange, onClick }) => {
             />
           </div>
         </div>
-        <div className="hide-logo" onClick={() => localType == "password" ? setLocalType("text") : setLocalType("password")}>
+        <div
+          className="hide-logo"
+          onClick={() =>
+            localType == "password"
+              ? setLocalType("text")
+              : setLocalType("password")
+          }
+        >
           {type == "password" ? (
             localType == "password" ? (
               <img

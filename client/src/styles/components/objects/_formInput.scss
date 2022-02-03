@@ -29,9 +29,9 @@
     border: solid 1px rgb(207, 217, 222);
     border-radius: 0.25rem;
     box-sizing: border-box;
-    cursor:text;
+    cursor: text;
 
-    .hide-logo{
+    .hide-logo {
       position: absolute;
       cursor: pointer;
       display: flex;
@@ -42,7 +42,7 @@
       right: 0.5rem;
       top: 50%;
       transform: translate(-50%, -50%);
-      img{
+      img {
         width: 1.25rem;
       }
     }
@@ -89,9 +89,10 @@
         transition: all 0.1s linear;
         flex: auto;
         box-sizing: border-box;
+        white-space: nowrap;
         overflow: hidden;
-        word-wrap: break-word;
         text-overflow: ellipsis;
+        box-sizing: border-box;
         padding: 1.3rem 0.5rem 0 0.5rem;
       }
 

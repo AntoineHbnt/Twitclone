@@ -1,4 +1,4 @@
-import Log from "./components/Log";
+import Log from "./pages/Log";
 import Routes from "./components/Routes";
 import './styles/index.scss'
 
