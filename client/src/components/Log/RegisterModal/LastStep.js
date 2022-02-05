@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FormInput from "../../Objects/FormInput";
 
-const LastStep = ({password, setPassword}) => {
+const LastStep = ({password, setPassword, pseudo, setPseudo, errors}) => {
+
+  useEffect(() => {console.log(errors);},[errors])
+
   return (
     <div className="form">
       <div className="form-title">
-        <span>Créer votre compte</span>
+        <span><h3>Créer votre compte</h3></span>
       </div>
-      <span className="subtitle">Votre mot de passe doit faire au moins 8 caractère </span>
-      <FormInput label="Mot de passe" id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} hideOption={true}/>
+      <FormInput label="Pseudo" id="pseudo" value={pseudo} onChange={(e) => setPseudo(e.target.value)} error={errors.pseudo} />
+      <span className="subtitle"><h4>Votre mot de passe doit faire au moins 6 caractères </h4></span>
+      <FormInput label="Mot de passe" id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} error={errors.password} hideOption={true}/>
     </div>
   );
 };

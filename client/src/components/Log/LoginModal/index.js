@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import axios from "axios";
 import ForgotPassword from "./ForgotPassword";
 import LoginOption from "./LoginOption";
-import Password from "./Password";
+import Login from "./Login";
 
 const LoginModal = ({ onClose }) => {
-  const [identifiant, setIdentifiant] = useState("");
+  const [connectId, setconnectId] = useState("");
   const [password, setPassword] = useState("");
   const [step, setStep] = useState(1);
+  const [errors, setErrors] = useState({ connectId: "", password: "" });
 
   const goNext = (e) => {
     e.preventDefault();
@@ -16,6 +18,27 @@ const LoginModal = ({ onClose }) => {
   const goPrevious = (e) => {
     e.preventDefault();
     setStep(step - 1);
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}api/user/login`,
+      withCredentials: true,
+      data: {
+        connectId,
+        password,
+      },
+    }).then((res) => {
+      if (res.data.errors) {
+        setErrors({ connectId: res.data.errors.connectId, password: res.data.errors.password });
+      } else {
+        window.location = "/";
+      }
+    })
+    .catch((err) => console.log(err));
   };
 
   return (
@@ -34,16 +57,22 @@ const LoginModal = ({ onClose }) => {
               />
             </div>
           </div>
-          {step == 1 ? (
+          {step === 1 ? (
             <LoginOption
-              identifiant={identifiant}
+              connectId={connectId}
               goNext={goNext}
               setStep={setStep}
-              setIdentifiant={setIdentifiant}
+              setconnectId={setconnectId}
             />
-          ) : step == 2 ? (
-            <Password identifiant={identifiant} password={password} setPassword={setPassword} />
-          ) : step == 3 ? (
+          ) : step === 2 ? (
+            <Login
+              connectId={connectId}
+              password={password}
+              setPassword={setPassword}
+              login={handleLogin}
+              errors={errors}
+            />
+          ) : step === 3 ? (
             <ForgotPassword />
           ) : (
             <></>

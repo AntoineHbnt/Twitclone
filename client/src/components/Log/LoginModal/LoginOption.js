@@ -3,11 +3,11 @@ import Button from "../../Objects/Button";
 import Separator from "../../Objects/Separator";
 import FormInput from "../../Objects/FormInput";
 
-const FirstStep = ({ identifiant, setIdentifiant, goNext, setStep }) => {
+const FirstStep = ({ connectId, setconnectId, goNext, setStep }) => {
   const [isAvailable, setIsAvailable] = useState(false);
 
   const checkInput = () => {
-    if (identifiant != "") {
+    if (connectId !== "") {
       setIsAvailable(true);
     } else {
       setIsAvailable(false);
@@ -16,7 +16,7 @@ const FirstStep = ({ identifiant, setIdentifiant, goNext, setStep }) => {
 
   useEffect(() => {
     checkInput();
-  }, [identifiant]);
+  }, [connectId]);
 
   return (
     <div className="login-content">
@@ -37,11 +37,11 @@ const FirstStep = ({ identifiant, setIdentifiant, goNext, setStep }) => {
         <Separator label="ou" />
         <FormInput
           label="Numéro de téléphone, adresse email ou nomd'utilisateur"
-          id="identifiant"
+          id="connectId"
           autoComplete="username"
-          value={identifiant}
+          value={connectId}
           type="text"
-          onChange={(e) => setIdentifiant(e.target.value)}
+          onChange={(e) => setconnectId(e.target.value)}
         />
         <Button
           label="Suivant"

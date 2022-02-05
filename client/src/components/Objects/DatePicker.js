@@ -38,25 +38,25 @@ const DatePicker = ({dateOfBirth, setDateOfBirth}) => {
           <option value="10">Novembre</option>
           <option value="11">Décembre</option>
         </select>
-        <img src="./img/icons/select-arrow.svg" alt="" srcset="" />
+        <img src="./img/icons/select-arrow.svg" alt="" srcSet="" />
       </div>
       <div className="input-select day">
         <label htmlFor="day"><span>Jour</span></label>
         <select name="day" id="day" onChange={(e) => {setDay(e.target.value)}}>
         {[...Array(daysInMonth(month, year))].map((e, i) => (
-            <option value={i+1}>{i+1}</option>
+            <option key={i} value={i+1}>{i+1}</option>
           ))}
         </select>
-        <img src="./img/icons/select-arrow.svg" alt="" srcset="" />
+        <img src="./img/icons/select-arrow.svg" alt="" srcSet="" />
       </div>
       <div className="input-select year">
         <label htmlFor="year"><span>Année</span></label>
         <select name="year" id="year" onChange={(e) => {setYear(e.target.value)}}>
           {[...Array(100)].map((e, i) => (
-            <option value={currentYear()-i}>{currentYear()-i}</option>
+            <option key={i} value={currentYear()-i}>{currentYear()-i}</option>
           ))}
         </select>
-        <img src="./img/icons/select-arrow.svg" alt="" srcset="" />
+        <img src="./img/icons/select-arrow.svg" alt="" srcSet="" />
       </div>
     </div>
   );

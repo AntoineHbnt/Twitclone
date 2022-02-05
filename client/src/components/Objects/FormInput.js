@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const FormInput = ({ label, id, type, maxSize, value, onChange, onClick, autoComplete }) => {
+const FormInput = ({ label, id, type, maxSize, value, onChange, onClick, autoComplete, error, disable}) => {
   const [inputSize, setInputSize] = useState(0);
   const [isEmpty, setIsEmpty] = useState(false);
   const [firstLaunch, setFirstLaunch] = useState(true);
@@ -39,7 +39,7 @@ const FormInput = ({ label, id, type, maxSize, value, onChange, onClick, autoCom
   }, [value]);
 
   return (
-    <div id={id + "-input"} className="input-field">
+    <div id={id + "-input"} className={"input-field"+(error ? " error" : "")+(disable ? " disable" : "")}>
       <div className="input-container">
         <div className="input-wrapper">
           <label htmlFor={id}>{label}</label>
@@ -56,11 +56,11 @@ const FormInput = ({ label, id, type, maxSize, value, onChange, onClick, autoCom
             <input
               autoComplete={autoComplete ? autoComplete : ""}
               type={
-                type == "password" ? localType : type == "date" ? "text" : type
+                type === "password" ? localType : type === "date" ? "text" : type
               }
               name={id}
               id={id}
-              value={type == "date" ? toDate(value) : value}
+              value={type === "date" ? toDate(value) : value}
               onChange={onChange}
             />
           </div>
@@ -68,13 +68,13 @@ const FormInput = ({ label, id, type, maxSize, value, onChange, onClick, autoCom
         <div
           className="hide-logo"
           onClick={() =>
-            localType == "password"
+            localType === "password"
               ? setLocalType("text")
               : setLocalType("password")
           }
         >
-          {type == "password" ? (
-            localType == "password" ? (
+          {type === "password" ? (
+            localType === "password" ? (
               <img
                 src="./img/icons/eye_visible_hide_hidden_show_icon_145988.png"
                 alt=""
@@ -89,7 +89,7 @@ const FormInput = ({ label, id, type, maxSize, value, onChange, onClick, autoCom
         </div>
       </div>
       <div className="error-message">
-        <span>{isEmpty ? "Le champs de texte est vide " : ""}</span>
+        <span>{isEmpty ? "Le champs de texte est vide " : error ? error : ""}</span>
       </div>
     </div>
   );

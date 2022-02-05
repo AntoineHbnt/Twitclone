@@ -2,7 +2,7 @@ import React from "react";
 import DatePicker from "../../Objects/DatePicker";
 import FormInput from "../../Objects/FormInput";
 
-const FirstStep = ({name, email, tel, dateOfBirth, isEmail, setDateOfBirth, setEmail, setName, setTel, setIsEmail}) => {
+const FirstStep = ({name, identifier, dateOfBirth, errors, isEmail, setDateOfBirth, setIdentifier, setName, setIsEmail}) => {
   return (
     <div className="form">
       <div className="form-title"><h3>Créer votre compte</h3></div>
@@ -11,31 +11,21 @@ const FirstStep = ({name, email, tel, dateOfBirth, isEmail, setDateOfBirth, setE
         id="name"
         type="text"
         value={name}
+        error={errors.name}
         onChange={(e) => {
           setName(e.target.value);
         }}
       />
-      {isEmail ? (
         <FormInput
-          label="Email"
-          id="email"
-          type="text"
-          value={email}
+          label={isEmail ? "Email" : "Téléphone"}
+          id="identifier"
+          type={isEmail ? "text" : "number"}
+          value={identifier}
+          error={errors.identifier}
           onChange={(e) => {
-            setEmail(e.target.value);
+            setIdentifier(e.target.value);
           }}
         />
-      ) : (
-        <FormInput
-          label="Téléphone"
-          id="tel"
-          type="text"
-          value={tel}
-          onChange={(e) => {
-            setTel(e.target.value);
-          }}
-        />
-      )}
 
       <span className="option-switch" onClick={() => setIsEmail(!isEmail)}>
         {" "}

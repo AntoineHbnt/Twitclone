@@ -4,7 +4,7 @@ import FormInput from "../../Objects/FormInput";
 import Separator from "../../Objects/Separator";
 
 const ForgotPassword = () => {
-  const [identifiant, setIdentifiant] = useState("");
+  const [connectId, setconnectId] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
 
@@ -20,10 +20,10 @@ const ForgotPassword = () => {
         </div>
         <FormInput
           label="Numéro de téléphone, adresse email ou nomd'utilisateur"
-          id="identifiant"
-          value={identifiant}
+          id="connectId"
+          value={connectId}
           type="text"
-          onChange={(e) => setIdentifiant(e.target.value)}
+          onChange={(e) => setconnectId(e.target.value)}
         />
         <FormInput
           label="Nouveau mot de passe"

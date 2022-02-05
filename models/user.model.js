@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const { isEmail } = require("validator");
 const bcrypt = require("bcrypt");
+const {isEmail, isMobilePhone} = require('validator');
 
 const userSchema = new mongoose.Schema(
   {
@@ -19,13 +19,16 @@ const userSchema = new mongoose.Schema(
       minlength: 6,
       maxlength: 25,
     },
-    email: {
+    identifier: {
       type: String,
-      unique: true,
       require: true,
-      validate: [isEmail],
-      lowercase: true,
+      unique: true,
       trim: true,
+      lowercase: true,
+    },
+    dateOfBirth: {
+      type: Date,
+      require: true,
     },
     password: {
       type: String,
@@ -97,8 +100,8 @@ userSchema.pre("save", async function (next) {
 
 //Login verification
 userSchema.statics.login = async function (connectId, password) {
-  const user = await (isEmail(connectId)
-    ? this.findOne({ email: connectId })
+  const user = await (isEmail(connectId) || isMobilePhone(connectId)
+    ? this.findOne({ identifier: connectId })
     : this.findOne({ userAt: connectId }));
   if (user) {
     const auth = await bcrypt.compare(password, user.password);

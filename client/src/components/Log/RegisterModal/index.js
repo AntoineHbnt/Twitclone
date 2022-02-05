@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import FirstStep from "./FirstStep";
 import LastStep from "./LastStep";
@@ -5,13 +6,50 @@ import SecondStep from "./SecondStep";
 
 const RegisterModal = ({ onClose }) => {
   const [name, setName] = useState("");
-  const [tel, setTel] = useState("");
-  const [email, setEmail] = useState("");
+  const [pseudo, setPseudo] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [isEmail, setIsEmail] = useState(false);
   const [isAvailable, setIsAvailable] = useState(false);
   const [dateOfBirth, setDateOfBirth] = useState();
   const [step, setStep] = useState(1);
+
+  const [tempEmail, setTempEmail] = useState("");
+  const [tempPhone, setTempPhone] =useState("");
+
+  const [errors, setErrors] = useState({
+    name: "",
+    identifier: "",
+    password: "",
+  });
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}api/user/register`,
+      withCredentials: true,
+      data: {
+        userAt: pseudo,
+        userPseudo: name,
+        identifier,
+        dateOfBirth,
+        password,
+      },
+    }).then((res) => {
+      if (res.data.errors) {
+        setErrors({
+          name: res.data.errors.userPseudo,
+          pseudo: res.data.errors.userAt,
+          identifier: res.data.errors.identifier,
+          password: res.data.errors.password,
+        });
+      } else {
+        window.location = "/";
+      }
+    });
+  };
 
   const goNext = (e) => {
     e.preventDefault();
@@ -23,29 +61,19 @@ const RegisterModal = ({ onClose }) => {
     setStep(step - 1);
   };
 
-  const checkInput = () => {
-    if (name != "" && dateOfBirth != "") {
-      if (isEmail ? email != "" : tel != "") {
-        setIsAvailable(true);
-      } else {
-        setIsAvailable(false);
-      }
-    } else {
-      setIsAvailable(false);
-    }
-  };
-
   useEffect(() => {
-    checkInput();
-    if (step == 4) onClose();
-  }, [email, tel, name, step, dateOfBirth, isEmail]);
+    setIsAvailable(name !== "" && dateOfBirth !== "" && identifier !== "")
+    setIdentifier(isEmail ? tempEmail : tempPhone)
+    console.log(identifier);
+    if (step === 4) onClose();
+  }, [tempEmail, tempPhone, name, step, dateOfBirth, isEmail]);
 
   return (
     <div className="modal-container">
       <form className="modal-wrapper">
         <div className="top">
           <div className="header">
-            {step == 1 ? (
+            {step === 1 ? (
               <div className="header-wrapper first-step">
                 <div className="icon-btn" onClick={onClose}>
                   <img className="icon" src="./img/icons/cross.svg" alt="" />
@@ -70,38 +98,45 @@ const RegisterModal = ({ onClose }) => {
             )}
           </div>
           <div className="register-content">
-            {step == 1 ? (
+            {step === 1 ? (
               <FirstStep
                 name={name}
-                email={email}
-                tel={tel}
+                identifier={isEmail ? tempEmail : tempPhone}
                 dateOfBirth={dateOfBirth}
+                errors={errors}
                 isEmail={isEmail}
                 setName={setName}
-                setEmail={setEmail}
-                setTel={setTel}
+                setIdentifier={isEmail ? setTempEmail : setTempPhone}
                 setDateOfBirth={setDateOfBirth}
                 setIsEmail={setIsEmail}
               />
-            ) : step == 2 ? (
+            ) : step === 2 ? (
               <SecondStep
                 name={name}
-                email={email}
-                tel={tel}
+                identifier={identifier}
+                errors={errors}
                 dateOfBirth={dateOfBirth}
                 isEmail={isEmail}
                 setStep={setStep}
               />
             ) : (
-              <LastStep password={password} setPassword={setPassword} />
+              <LastStep
+                password={password}
+                setPassword={setPassword}
+                pseudo={pseudo}
+                setPseudo={setPseudo}
+                errors={errors}
+              />
             )}
           </div>
         </div>
         <div className="sending-btn">
-          {step == 2 ? (
+          {step === 2 ? (
             <button type="submit" onClick={goNext}>
               S'inscrire
             </button>
+          ) : step === 3 ? (
+            <button onClick={handleRegister}>Suivant</button>
           ) : (
             <button
               onClick={isAvailable ? goNext : (e) => e.preventDefault}

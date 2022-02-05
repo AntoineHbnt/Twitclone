@@ -13,13 +13,13 @@ module.exports.createTweet = async (req, res) => {
     fs.mkdirSync(dir);
   }
 
-  if (req.files != null) {
+  if (req.files !== null) {
     try {
       req.files.map((file, i) => {
         if (
-          file.detectedMimeType != "image/jpg" &&
-          file.detectedMimeType != "image/png" &&
-          file.detectedMimeType != "image/jpeg"
+          file.detectedMimeType !== "image/jpg" &&
+          file.detectedMimeType !== "image/png" &&
+          file.detectedMimeType !== "image/jpeg"
         )
           throw Error("invalid file");
 
@@ -43,7 +43,7 @@ module.exports.createTweet = async (req, res) => {
       posterId: req.body.posterId,
       message: req.body.message,
       audience: req.body.audience,
-      pictures: req.files != null ? filepaths : [],
+      pictures: req.files !== null ? filepaths : [],
     });
     return res.status(201).send(tweet);
   } catch (err) {

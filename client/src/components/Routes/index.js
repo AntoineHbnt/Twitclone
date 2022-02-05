@@ -5,6 +5,7 @@ import {
     Route,
   } from "react-router-dom";
 import Home from '../../pages/Home';
+import NavBar from '../NavBar';
 
 const index = () => {
     return (
