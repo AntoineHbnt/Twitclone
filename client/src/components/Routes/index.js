@@ -1,20 +1,14 @@
-import React from 'react';
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-  } from "react-router-dom";
-import Home from '../../pages/Home';
-import NavBar from '../NavBar';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "../../pages/Home";
+import NavBar from "../NavBar";
 
 const index = () => {
-    return (
-        <Router>
-          <Routes>
-            <Route path="/" exact element={<Home />} />
-          </Routes>
-        </Router>
-      );
+  return (
+    <Routes>
+      <Route path="/home" exact element={<Home />} />
+    </Routes>
+  );
 };
 
 export default index;

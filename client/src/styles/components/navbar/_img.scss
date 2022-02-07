@@ -1,0 +1,104 @@
+#home-link {
+  .page-link-wrapper {
+    .link-img {
+      background-image: url("../../../../public/img/icons/navbar/unselected/home.svg");
+    }
+  }
+  &.active {
+    .page-link-wrapper {
+      .link-img {
+        background-image: url("../../../../public/img/icons/navbar/selected/home.svg");
+      }
+    }
+  }
+}
+
+#explore-link {
+    .page-link-wrapper {
+      .link-img {
+        background-image: url("../../../../public/img/icons/navbar/unselected/search_1.svg");
+      }
+    }
+    &.active {
+      .page-link-wrapper {
+        .link-img {
+          background-image: url("../../../../public/img/icons/navbar/selected/search_1.svg");
+        }
+      }
+    }
+  }
+
+  #notification-link {
+    .page-link-wrapper {
+      .link-img {
+        background-image: url("../../../../public/img/icons/navbar/unselected/notifications.svg");
+      }
+    }
+    &.active {
+      .page-link-wrapper {
+        .link-img {
+          background-image: url("../../../../public/img/icons/navbar/selected/notifications.svg");
+        }
+      }
+    }
+  }
+
+  #message-link {
+    .page-link-wrapper {
+      .link-img {
+        background-image: url("../../../../public/img/icons/navbar/unselected/messages.svg");
+      }
+    }
+    &.active {
+      .page-link-wrapper {
+        .link-img {
+          background-image: url("../../../../public/img/icons/navbar/selected/messages.svg");
+        }
+      }
+    }
+  }
+
+  #bookmark-link {
+    .page-link-wrapper {
+      .link-img {
+        background-image: url("../../../../public/img/icons/navbar/unselected/bookmarks.svg");
+      }
+    }
+    &.active {
+      .page-link-wrapper {
+        .link-img {
+          background-image: url("../../../../public/img/icons/navbar/selected/bookmarks.svg");
+        }
+      }
+    }
+  }
+
+  #list-link {
+    .page-link-wrapper {
+      .link-img {
+        background-image: url("../../../../public/img/icons/navbar/unselected/list.svg");
+      }
+    }
+    &.active {
+      .page-link-wrapper {
+        .link-img {
+          background-image: url("../../../../public/img/icons/navbar/selected/list.svg");
+        }
+      }
+    }
+  }
+
+  #profil-link {
+    .page-link-wrapper {
+      .link-img {
+        background-image: url("../../../../public/img/icons/navbar/unselected/profil.svg");
+      }
+    }
+    &.active {
+      .page-link-wrapper {
+        .link-img {
+          background-image: url("../../../../public/img/icons/navbar/selected/profil.svg");
+        }
+      }
+    }
+  }
