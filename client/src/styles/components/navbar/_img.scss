@@ -25,7 +25,7 @@
           background-image: url("../../../../public/img/icons/navbar/selected/search_1.svg");
         }
       }
-    }
+    } 
   }
 
   #notification-link {
@@ -100,5 +100,23 @@
           background-image: url("../../../../public/img/icons/navbar/selected/profil.svg");
         }
       }
+    }
+  }
+
+
+  @media screen and (max-width: 1300px) {
+    #explore-link {
+      .page-link-wrapper {
+        .link-img {
+          background-image: url("../../../../public/img/icons/navbar/unselected/search.svg");
+        }
+      }
+      &.active {
+        .page-link-wrapper {
+          .link-img {
+            background-image: url("../../../../public/img/icons/navbar/selected/search.svg");
+          }
+        }
+      } 
     }
   }

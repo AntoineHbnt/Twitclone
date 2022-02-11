@@ -1,0 +1,10 @@
+.right-bar-container{
+    width: 21.875rem;
+    height: 100vh;
+}
+
+@media screen and (max-width: 1017px) {
+    .right-bar-container{
+        display: none;
+    }
+}

@@ -1,0 +1,186 @@
+@import "./audienceModal";
+@import "./counter";
+
+.tweet-input-container {
+  width: 100%;
+  padding: 0.25rem 0 0.25rem 0;
+
+  .tweet-input-wrapper {
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    padding: 0 1rem 0 1rem;
+
+    .left {
+      width: fit-content;
+      padding-top: 0.25rem;
+      margin-right: 0.75rem;
+
+      .profil-picture {
+        width: 3rem;
+        height: 3rem;
+
+        img {
+          border-radius: 9999px;
+          width: 100%;
+        }
+      }
+    }
+
+    .right {
+      width: 100%;
+      padding-top: 0.25rem;
+      display: flex;
+      flex-direction: column;
+
+      .input-field {
+        width: 100%;
+        max-width: 31.875rem;
+        margin: 0;
+        .input-field-wrapper {
+          width: 100%;
+          min-height: 3.25rem;
+          max-height: 45rem;
+          overflow-y: auto;
+          .DraftEditor-root {
+            font-size: 1.25rem;
+            font-weight: 300;
+            line-height: 1.5rem;
+            padding: 0.75rem 0 0.75rem 0;
+            .public-DraftEditorPlaceholder-root {
+              position: absolute;
+              .public-DraftEditorPlaceholder-inner {
+                font-weight: 300;
+                color: #536471;
+              }
+            }
+          }
+        }
+      }
+
+      .audience-select {
+        width: 100%;
+        margin-left: -0.5rem;
+        height: fit-content;
+        border-bottom: 1px solid rgb(239, 243, 244);
+        .audience-select-wrapper {
+          width: fit-content;
+          height: 1.5rem;
+          padding-bottom: 0.75rem;
+          .audience-btn-container {
+            height: 100%;
+            .audience-btn-wrapper {
+              display: flex;
+              align-items: center;
+              height: 100%;
+              padding: 0 0.75rem 0 0.75rem;
+              border-radius: 9999px;
+              cursor: pointer;
+              transition: background-color ease-in 0.1s;
+
+              &:hover {
+                background-color: rgba(29, 155, 240, 0.094);
+              }
+
+              .logo {
+                img {
+                  width: 1rem;
+                  height: 1rem;
+                  margin-right: 0.25rem;
+                }
+              }
+              .label {
+                color: $color-1;
+                font-weight: bold;
+                font-size: 0.875rem;
+              }
+            }
+          }
+        }
+      }
+
+      .tweet-option {
+        width: 100%;
+        .tweet-option-wrapper {
+          display: flex;
+          justify-content: space-between;
+          .left {
+            width: fit-content;
+            .option-container {
+              width: fit-content;
+              .option-wrapper {
+                margin-top: 0.75rem;
+                display: flex;
+                .option-logo {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  width: 2.25rem;
+                  height: 2.25rem;
+                  border-radius: 9999px;
+                  cursor: pointer;
+                  transition: background-color ease-in 0.1s;
+
+                  &:hover {
+                    background-color: rgba(29, 155, 240, 0.094);
+                  }
+
+                  &:first-child {
+                    margin-left: -0.5rem;
+                  }
+
+                  img {
+                    width: 1.25rem;
+                    height: 1.25rem;
+                  }
+                }
+              }
+            }
+          }
+          .right {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: fit-content;
+            margin-top: 0.75rem;
+            .tweet-btn-container {
+              height: 100%;
+              &.disable {
+                opacity: 0.5;
+              }
+
+              &:not(.disable) {
+                .tweet-btn-wrapper {
+                  cursor: pointer;
+                  transition: background-color 0.1s ease-in;
+
+                  &:hover {
+                    background-color: rgb(27, 143, 221);
+                  }
+                  label {
+                    cursor: pointer;
+                  }
+                }
+              }
+              .tweet-btn-wrapper {
+                height: 2.25rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 9999px;
+                background-color: $color-1;
+                padding: 0 1rem 0 1rem;
+                margin-left: 0.75rem;
+                border: 1px;
+
+                label {
+                  color: $color-2;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

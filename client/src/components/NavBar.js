@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
+  const userData = useSelector(state => state.userReducer);
+
   return (
-    <div className="nav-container">
+    <header className="nav-container">
       <div className="nav-wrapper">
         <div className="nav-top">
           <div className="logo-container">
@@ -141,11 +144,11 @@ const NavBar = () => {
             <div className="account-card-wrapper">
               <div className="left">
                 <div className="profil-picture">
-                  <img src="./img/default_profile.png" alt="" />
+                  <img src={userData.picture} alt="" />
                 </div>
                 <div className="name-container">
-                  <div className="pseudo">DefaultUser</div>
-                  <div className="user-at">@Defaultuser</div>
+                  <div className="pseudo">{userData.userPseudo}</div>
+                  <div className="user-at">@{userData.userAt}</div>
                 </div>
               </div>
               <div className="right">
@@ -159,7 +162,7 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

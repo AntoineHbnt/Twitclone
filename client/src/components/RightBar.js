@@ -2,7 +2,7 @@ import React from 'react';
 
 const RightBar = () => {
     return (
-        <div>
+        <div className="right-bar-container">
             
         </div>
     );

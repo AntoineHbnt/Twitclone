@@ -1,0 +1,35 @@
+@import "./log";
+@import './home';
+
+#root {
+  display: flex;
+  justify-content: center;
+}
+
+.page-container {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  
+
+  .main-container {
+      width: fit-content;
+      min-height: 100vh;
+
+    .main-wrapper {
+      display: flex;
+      column-gap: 2.5rem;
+      width: fit-content;
+      
+      .content-container{
+        width: 37.5rem;
+        min-height: 100vh;
+        box-sizing: border-box;
+        border-left: 1px solid rgb(239, 243, 244);
+        border-right: 1px solid rgb(239, 243, 244);
+      }
+    }
+  }
+}
