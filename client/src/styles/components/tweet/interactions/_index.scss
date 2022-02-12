@@ -1,0 +1,90 @@
+.interaction-container {
+    margin-top: 0.75rem;
+    max-width: 26.5625rem;
+    .interaction-wrapper {
+      display: flex;
+      justify-content: space-between;
+      .interaction {
+        display: flex;
+        align-items: center;
+        &:hover {
+          cursor: pointer;
+          &.blue {
+            .logo {
+              background-color: rgba(29, 155, 240, 0.1);
+              .interaction-logo {
+                fill: $color-1;
+              }
+            }
+            .number {
+              color: $color-1;
+            }
+          }
+          &.green {
+            .logo {
+              background-color: rgba(0, 186, 124, 0.1);
+              .interaction-logo {
+                fill: rgb(0, 186, 124);
+              }
+            }
+            .number {
+              color: rgb(0, 186, 124);
+            }
+          }
+          &.red {
+            .logo {
+              background-color: rgba(249, 24, 128, 0.1);
+              .interaction-logo {
+                fill: rgb(249, 24, 128);
+              }
+            }
+            .number {
+              color: rgb(249, 24, 128);
+            }
+          }
+        }
+        .logo {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 2.25rem;
+          height: 2.25rem;
+          border-radius: 9999px;
+          transition: all 0.1s ease-in;
+
+          &.fav {
+            opacity: 0;
+            background-image: url("https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png");
+            background-position: left;
+            background-repeat: no-repeat;
+            background-size: 2900%;
+            &.is_animating {
+              background-opacity: 100%;
+              transition: opacity 0.1s ease-in;
+              animation: heart-burst 0.8s steps(28) 1;
+            }
+          }
+
+          @keyframes heart-burst {
+            from {
+              background-position: left;
+            }
+            to {
+              background-position: right;
+            }
+          }
+
+          .interaction-logo {
+            width: 1.17rem;
+            fill: $color-4;
+          }
+        }
+        .number {
+          font-size: 0.8rem;
+          line-height: 1rem;
+          padding: 0 0.75rem 0 0.1rem;
+          transition: all 0.1s ease-in;
+        }
+      }
+    }
+  }

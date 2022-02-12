@@ -12,9 +12,10 @@
     .home-header {
       position: absolute;
       top: 0;
+      z-index: 9999;
       height: 3.25rem;
       width: 100%;
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(1.5rem);
       .home-header-wrapper {
         display: flex;
         justify-content: space-between;

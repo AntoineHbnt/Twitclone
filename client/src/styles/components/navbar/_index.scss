@@ -3,6 +3,7 @@
 .nav-container {
   height: 100vh;
   width: fit-content;
+  box-sizing: border-box;
   .nav-wrapper {
     height: 100%;
     display: flex;
