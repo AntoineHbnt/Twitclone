@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RetweetButton = ({tweetId}) => {
+const RetweetButton = ({tweetId, value}) => {
     return (
         <div className="interaction green retweet">
           <div className="logo">
@@ -14,7 +14,7 @@ const RetweetButton = ({tweetId}) => {
               </g>
             </svg>
           </div>
-          <div className="number">999</div>
+          <div className="number">{value}</div>
         </div>
     );
 };

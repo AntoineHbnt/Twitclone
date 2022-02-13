@@ -52,18 +52,17 @@
           border-radius: 9999px;
           transition: all 0.1s ease-in;
 
-          &.fav {
-            opacity: 0;
+          //TODO : fav heart animation
+          /* &.fav {
             background-image: url("https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png");
             background-position: left;
             background-repeat: no-repeat;
             background-size: 2900%;
             &.is_animating {
-              background-opacity: 100%;
               transition: opacity 0.1s ease-in;
               animation: heart-burst 0.8s steps(28) 1;
             }
-          }
+          } */
 
           @keyframes heart-burst {
             from {

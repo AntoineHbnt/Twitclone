@@ -37,7 +37,7 @@ app.use("/api/notification", notificationRoutes);
 // jwt
 app.get('*', checkUser);
 app.get('/jwtid',requireAuth, (req, res) => {
-  res.status(200).send(res.locals.user._id)
+  if(res.locals.user) res.status(200).send(res.locals.user._id)
 });
 
 //Server launch

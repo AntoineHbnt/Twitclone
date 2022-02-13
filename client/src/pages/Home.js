@@ -5,8 +5,6 @@ import TweetInput from "../components/TweetInput";
 import Log from "./Log";
 
 const Home = () => {
-  
-
   return (
     <main className="main-container">
       <div className="main-wrapper">
@@ -34,6 +32,7 @@ const Home = () => {
                   <TweetInput />
                   <div className="break-line"></div>
                   <Tweet />
+                  <div className="break-line"></div>
                 </div>
               </div>
             </div>

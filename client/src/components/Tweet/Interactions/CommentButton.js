@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CommentButton = ({tweetId}) => {
+const CommentButton = ({tweetId, value}) => {
     return (
         <div className="interaction blue comment">
           <div className="logo">
@@ -15,7 +15,7 @@ const CommentButton = ({tweetId}) => {
               </g>
             </svg>
           </div>
-          <div className="number">999</div>
+          <div className="number">{value}</div>
         </div>
     );
 };

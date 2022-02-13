@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const FavButton = ({tweetId}) => {
+const FavButton = ({tweetId,value}) => {
     
   const [isAnimating, setIsAnimating] = useState(false);
   const [fav, setFav] = useState(false);
@@ -25,7 +25,7 @@ const FavButton = ({tweetId}) => {
               </g>
             </svg>
           </div>
-          <div className="number">999</div>
+          <div className="number">{value}</div>
         </div>
     );
 };

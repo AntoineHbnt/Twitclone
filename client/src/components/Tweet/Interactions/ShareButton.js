@@ -1,6 +1,6 @@
 import React from "react";
 
-const ShareButton = ({tweetId}) => {
+const ShareButton = ({tweetId, value}) => {
   return (
     <div className="interaction blue share">
       <div className="logo">
