@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import RightBar from "../components/RightBar";
+import Thread from "../components/Thread";
 import Tweet from "../components/Tweet";
 import TweetInput from "../components/TweetInput";
 import Log from "./Log";
@@ -31,7 +32,7 @@ const Home = () => {
                 <div className="home-content-wrapper">
                   <TweetInput />
                   <div className="break-line"></div>
-                  <Tweet />
+                  <Thread />
                   <div className="break-line"></div>
                 </div>
               </div>

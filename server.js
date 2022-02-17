@@ -2,16 +2,19 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-
+const firebaseConfig = require('./config/firebase')
 const userRoutes = require("./routes/user.routes");
-const tweetRoutes = require('./routes/tweet.routes')
-const notificationRoutes = require('./routes/notification.routes');
+const tweetRoutes = require("./routes/tweet.routes");
+const notificationRoutes = require("./routes/notification.routes");
 const { checkUser, requireAuth } = require("./middleware/auth.middleware");
 
 require("dotenv").config({ path: "./config/.env" });
 require("./config/db");
+require('./config/firebase')
 
 const app = express();
+
+
 
 //Cors policy
 const corsOptions = {
@@ -35,9 +38,9 @@ app.use("/api/tweet", tweetRoutes);
 app.use("/api/notification", notificationRoutes);
 
 // jwt
-app.get('*', checkUser);
-app.get('/jwtid',requireAuth, (req, res) => {
-  if(res.locals.user) res.status(200).send(res.locals.user._id)
+app.get("*", checkUser);
+app.get("/jwtid", requireAuth, (req, res) => {
+  if (res.locals.user) res.status(200).send(res.locals.user._id);
 });
 
 //Server launch

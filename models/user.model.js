@@ -66,6 +66,14 @@ const userSchema = new mongoose.Schema(
     following: {
       type: [String],
     },
+    tweets: {
+      type: [
+        {
+          tweetId: String,
+          timestamps: Number
+        }
+      ]
+    },
     notifications: {
       type: [
         {

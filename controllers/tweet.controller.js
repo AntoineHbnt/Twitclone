@@ -1,17 +1,17 @@
 const TweetModel = require("../models/tweet.model");
+const UserModel = require("../models/user.model");
 const ObjectId = require("mongoose").Types.ObjectId;
+const { getStorage, ref, upload, uploadBytes } = require("firebase/storage");
 const { uploadErrors } = require("../utils/error.utils");
 const fs = require("fs");
 const { promisify } = require("util");
 const pipeline = promisify(require("stream").pipeline);
 
+// Get a reference to the storage service, which is used to create references in your storage bucket
+const storage = getStorage();
+
 module.exports.createTweet = async (req, res) => {
   let filepaths = [];
-  let dir = `${__dirname}/../client/public/uploads/tweets/${req.body.posterId}`;
-
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir);
-  }
 
   if (req.files !== null) {
     try {
@@ -26,15 +26,20 @@ module.exports.createTweet = async (req, res) => {
         if (file.size > 1000000) {
           throw Error("max size");
         }
-        filepaths.push(dir + "/" + req.body.posterId + Date.now() + i + ".jpg");
+        filepaths.push(
+          `users/${req.body.posterId}/tweet/` + Date.now() + i + ".jpg"
+        );
       });
     } catch (err) {
       const errors = uploadErrors(err);
       return res.status(201).json({ errors });
     }
 
+    console.log(req.files[0]);
     for (let i = 0; i < req.files.length; i++) {
-      await pipeline(req.files[i].stream, fs.createWriteStream(filepaths[i]));
+      uploadBytes(ref(storage, filepaths[i]), req.files[i]).then((snapshot) => {
+        console.log('Uploaded a blob or file!');
+      });
     }
   }
 
@@ -45,9 +50,22 @@ module.exports.createTweet = async (req, res) => {
       audience: req.body.audience,
       pictures: req.files !== null ? filepaths : [],
     });
-    return res.status(201).send(tweet);
+    const user = await UserModel.findByIdAndUpdate(
+      req.params.id,
+      {
+        $addToSet: {
+          tweets: {
+            id: tweet._id,
+            timestamps: tweet.createdAt,
+          },
+        },
+      },
+      { new: true, upsert: true }
+    );
+
+    return res.status(200).send(tweet);
   } catch (err) {
-    return res.status(409).send(err);
+    console.log(err);
   }
 };
 
@@ -66,6 +84,23 @@ module.exports.getTweet = async (req, res) => {
     return res.status(200).send(tweet);
   } catch (err) {
     res.status(404).send(err);
+  }
+};
+
+module.exports.getThread = async (req, res) => {
+  if (!ObjectId.isValid(req.params.id))
+    return res.status(404).send("Unknown ID : " + req.params.id);
+
+  try {
+    const thread = [];
+    const user = await UserModel.findById(req.params.id);
+    user.following.map(async (followingId) => {
+      followingUser = await UserModel.findById(followingId);
+      thread.push(followingUser.tweets);
+    });
+    console.log(thread);
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -97,8 +132,9 @@ module.exports.fav = async (req, res) => {
         },
       },
       { new: true }
-    )
-      .then((docs) => {return res.status(200).send(docs)})
+    ).then((docs) => {
+      return res.status(200).send(docs);
+    });
 
     await UserModel.findByIdAndUpdate(
       req.params.id,
@@ -108,9 +144,9 @@ module.exports.fav = async (req, res) => {
         },
       },
       { new: true }
-    )
+    );
   } catch (err) {
-    return res.status(500).json({ message: err });
+    console.log(err);
   }
 };
 
@@ -130,8 +166,7 @@ module.exports.unfav = async (req, res) => {
         },
       },
       { new: true }
-    )
-      .then((docs) => res.status(200).send(docs))
+    ).then((docs) => res.status(200).send(docs));
 
     await UserModel.findByIdAndUpdate(
       req.params.id,
@@ -141,7 +176,7 @@ module.exports.unfav = async (req, res) => {
         },
       },
       { new: true }
-    )
+    );
   } catch (err) {
     return res.status(500).json({ message: err });
   }
