@@ -38,7 +38,7 @@ module.exports.createTweet = async (req, res) => {
     console.log(req.files[0]);
     for (let i = 0; i < req.files.length; i++) {
       uploadBytes(ref(storage, filepaths[i]), req.files[i]).then((snapshot) => {
-        console.log('Uploaded a blob or file!');
+        console.log("Uploaded a blob or file!");
       });
     }
   }
@@ -91,14 +91,31 @@ module.exports.getThread = async (req, res) => {
   if (!ObjectId.isValid(req.params.id))
     return res.status(404).send("Unknown ID : " + req.params.id);
 
-  try {
-    const thread = [];
-    const user = await UserModel.findById(req.params.id);
-    user.following.map(async (followingId) => {
-      followingUser = await UserModel.findById(followingId);
-      thread.push(followingUser.tweets);
+  const sortTweets = (tweetsArray) => {
+    return tweetsArray.sort((a, b) => {
+      if (a.timestamps < b.timestamps) return 1;
+      if (a.timestamps > b.timestamps) return -1;
+      return 0;
     });
-    console.log(thread);
+  };
+
+  const handleTweets = async () => {
+    const user = await UserModel.findById(req.params.id);
+    const thread = [];
+
+    await Promise.all(
+      user.following.map(async (followingId) => {
+        followingUser = await UserModel.findById(followingId);
+        thread.push.apply(thread, followingUser.tweets);
+      })
+    );
+
+    return sortTweets(thread);
+  };
+
+  try {
+    const thread = await handleTweets();
+    return res.status(200).send(thread);
   } catch (err) {
     console.log(err);
   }
