@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const {isEmail, isMobilePhone} = require('validator');
+const { isEmail, isMobilePhone } = require("validator");
 
 const userSchema = new mongoose.Schema(
   {
@@ -66,14 +66,12 @@ const userSchema = new mongoose.Schema(
     following: {
       type: [String],
     },
-    tweets: {
-      type: [
-        {
-          tweetId: String,
-          timestamps: Number
-        }
-      ]
-    },
+    tweets: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "tweet",
+      },
+    ],
     notifications: {
       type: [
         {

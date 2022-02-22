@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const TweetSchema = new mongoose.Schema(
   {
     posterId: {
-      type: String,
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "user",
       require: true,
       trim: true,
     },
@@ -21,8 +22,8 @@ const TweetSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
-    tweetId:{
-      type: String
+    tweetId: {
+      type: String,
     },
     favs: {
       type: [String],
@@ -51,5 +52,4 @@ const TweetSchema = new mongoose.Schema(
   }
 );
 
-
-module.exports = mongoose.model('tweet', TweetSchema);
+module.exports = mongoose.model("tweet", TweetSchema);
