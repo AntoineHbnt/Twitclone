@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const TweetSchema = new mongoose.Schema(
   {
-    posterId: {
+    posterUser: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "user",
       require: true,
@@ -29,7 +29,7 @@ const TweetSchema = new mongoose.Schema(
       type: [String],
       require: true,
     },
-    retweet: {
+    retweets: {
       type: [String],
       require: true,
     },
