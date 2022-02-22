@@ -11,6 +11,8 @@ const pipeline = promisify(require("stream").pipeline);
 const storage = getStorage();
 
 module.exports.createTweet = async (req, res) => {
+  if (!ObjectId.isValid(req.params.id))
+    return res.status(404).send("Unknown ID : " + req.params.id);
   let filepaths = [];
 
   if (req.files !== null) {
@@ -27,7 +29,7 @@ module.exports.createTweet = async (req, res) => {
           throw Error("max size");
         }
         filepaths.push(
-          `users/${req.body.posterId}/tweet/` + Date.now() + i + ".jpg"
+          `users/${req.body.posterUser}/tweet/` + Date.now() + i + ".jpg"
         );
       });
     } catch (err) {
@@ -45,7 +47,7 @@ module.exports.createTweet = async (req, res) => {
 
   try {
     const tweet = await TweetModel.create({
-      posterId: req.body.posterId,
+      posterUser: req.params.id,
       message: req.body.message,
       audience: req.body.audience,
       pictures: req.files !== null ? filepaths : [],
@@ -54,10 +56,7 @@ module.exports.createTweet = async (req, res) => {
       req.params.id,
       {
         $addToSet: {
-          tweets: {
-            id: tweet._id,
-            timestamps: tweet.createdAt,
-          },
+          tweets: tweet._id,
         },
       },
       { new: true, upsert: true }
@@ -93,8 +92,8 @@ module.exports.getThread = async (req, res) => {
 
   const sortTweets = (tweetsArray) => {
     return tweetsArray.sort((a, b) => {
-      if (a.timestamps < b.timestamps) return 1;
-      if (a.timestamps > b.timestamps) return -1;
+      if (a.createdAt < b.createdAt) return 1;
+      if (a.createdAt > b.createdAt) return -1;
       return 0;
     });
   };
@@ -106,7 +105,13 @@ module.exports.getThread = async (req, res) => {
     await Promise.all(
       user.following.map(async (followingId) => {
         followingUser = await UserModel.findById(followingId);
-        thread.push.apply(thread, followingUser.tweets);
+
+        await Promise.all(
+          followingUser.tweets.map(async (tweetId) => {
+            tweet = await TweetModel.findById(tweetId).populate("posterUser");
+            thread.push(tweet);
+          })
+        );
       })
     );
 
@@ -117,7 +122,7 @@ module.exports.getThread = async (req, res) => {
     const thread = await handleTweets();
     return res.status(200).send(thread);
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
   }
 };
 

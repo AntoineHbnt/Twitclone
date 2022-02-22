@@ -5,7 +5,7 @@ import RetweetButton from "./RetweetButton";
 import ShareButton from "./ShareButton";
 import { abbreviateNumber } from "js-abbreviation-number";
 
-const Interaction = ({ tweetId }) => {
+const Interaction = ({ tweetData }) => {
   const numberParser = (num) => {
     if (num <= 9999) {
       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -17,10 +17,10 @@ const Interaction = ({ tweetId }) => {
   return (
     <div className="interaction-container">
       <div className="interaction-wrapper">
-        <CommentButton tweetId={tweetId} value={numberParser(10590)} />
-        <RetweetButton tweetId={tweetId} value={numberParser(9999)} />
-        <FavButton tweetId={tweetId} value={numberParser(9999)} />
-        <ShareButton tweetId={tweetId} />
+        <CommentButton tweetData={tweetData} value={numberParser(tweetData.comments.length)} />
+        <RetweetButton tweetData={tweetData} value={numberParser(tweetData.retweets.length)} />
+        <FavButton tweetData={tweetData} value={numberParser(tweetData.favs.length)} />
+        <ShareButton tweetData={tweetData} />
       </div>
     </div>
   );
