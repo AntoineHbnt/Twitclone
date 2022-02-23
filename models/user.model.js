@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema(
     },
     picture: {
       type: String,
-      default: "./uploads/profil/random-user.png",
+      default: "https://firebasestorage.googleapis.com/v0/b/twiclone-339909.appspot.com/o/users%2Fdefault%2Fdefault_profile.png?alt=media&token=c8568032-b59e-444e-bc70-362b237632b3",
     },
     bio: {
       type: String,
