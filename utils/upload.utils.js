@@ -2,7 +2,7 @@ const {
   getStorage,
   ref,
   upload,
-  uploadBytesResumable,
+  uploadBytes,
   getDownloadURL,
 } = require("firebase/storage");
 
@@ -16,12 +16,11 @@ module.exports.uploadFiles = async (files, userId, origin) => {
     files.map(async (file) => {
       const storageRef = ref(
         storage,
-        `users/${userId}/${origin}/` +
-          Date.now() +
-          "_" +
-          file.originalname
+        `users/${userId}/${origin}/` + Date.now() + "_" + file.originalname
       );
-      await uploadBytesResumable(storageRef, file.buffer);
+      await uploadBytes(storageRef, file.buffer, {
+        contentType: "image/jpeg",
+      });
       await getDownloadURL(storageRef).then((url) => {
         paths.push(url);
       });
