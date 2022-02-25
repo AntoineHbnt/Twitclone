@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const firebaseConfig = require('./config/firebase')
+const firebaseConfig = require("./config/firebase");
 const userRoutes = require("./routes/user.routes");
 const tweetRoutes = require("./routes/tweet.routes");
 const notificationRoutes = require("./routes/notification.routes");
@@ -10,11 +10,10 @@ const { checkUser, requireAuth } = require("./middleware/auth.middleware");
 
 require("dotenv").config({ path: "./config/.env" });
 require("./config/db");
-require('./config/firebase')
+require("./config/firebase");
+global.XMLHttpRequest = require("xhr2");
 
 const app = express();
-
-
 
 //Cors policy
 const corsOptions = {

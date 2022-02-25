@@ -1,49 +1,15 @@
 const TweetModel = require("../models/tweet.model");
 const UserModel = require("../models/user.model");
 const ObjectId = require("mongoose").Types.ObjectId;
-const { getStorage, ref, upload, uploadBytes } = require("firebase/storage");
 const { uploadErrors } = require("../utils/error.utils");
-const fs = require("fs");
-const { promisify } = require("util");
-const pipeline = promisify(require("stream").pipeline);
-
-// Get a reference to the storage service, which is used to create references in your storage bucket
-const storage = getStorage();
+const { uploadFiles } = require("../utils/upload.utils");
 
 module.exports.createTweet = async (req, res) => {
+  let files = req.files;
+  let filepaths = await uploadFiles(files, req.params.id, "tweet");
+  
   if (!ObjectId.isValid(req.params.id))
     return res.status(404).send("Unknown ID : " + req.params.id);
-  let filepaths = [];
-
-  if (req.files !== null) {
-    try {
-      req.files.map((file, i) => {
-        if (
-          file.detectedMimeType !== "image/jpg" &&
-          file.detectedMimeType !== "image/png" &&
-          file.detectedMimeType !== "image/jpeg"
-        )
-          throw Error("invalid file");
-
-        if (file.size > 1000000) {
-          throw Error("max size");
-        }
-        filepaths.push(
-          `users/${req.body.posterUser}/tweet/` + Date.now() + i + ".jpg"
-        );
-      });
-    } catch (err) {
-      const errors = uploadErrors(err);
-      return res.status(201).json({ errors });
-    }
-
-    console.log(req.files[0]);
-    for (let i = 0; i < req.files.length; i++) {
-      uploadBytes(ref(storage, filepaths[i]), req.files[i]).then((snapshot) => {
-        console.log("Uploaded a blob or file!");
-      });
-    }
-  }
 
   try {
     const tweet = await TweetModel.create({

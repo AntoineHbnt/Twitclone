@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const tweetController = require("../controllers/tweet.controller");
 const multer = require("multer");
+const { memoryStorage } = require("multer");
 const upload = multer();
 
 //tweet db
