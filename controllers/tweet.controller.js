@@ -15,7 +15,7 @@ module.exports.createTweet = async (req, res) => {
     filepaths = await uploadFiles(files, req.params.id, "tweet");
   } catch (err) {
     let errors = uploadErrors(err);
-    return res.status(201).send(errors)
+    return res.status(201).send(errors);
   }
 
   try {
@@ -74,6 +74,13 @@ module.exports.getThread = async (req, res) => {
   const handleTweets = async () => {
     const user = await UserModel.findById(req.params.id);
     const thread = [];
+    
+    await Promise.all(
+      user.tweets.map(async (tweetId) => {
+        tweet = await TweetModel.findById(tweetId).populate("posterUser");
+        if (tweet) thread.push(tweet);
+      })
+    );
 
     await Promise.all(
       user.following.map(async (followingId) => {
