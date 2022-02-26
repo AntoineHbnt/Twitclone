@@ -10,24 +10,30 @@ const {
 const storage = getStorage();
 
 module.exports.uploadFiles = async (files, userId, origin) => {
-  const promises = [];
   let paths = [];
-  await Promise.all(
-    files.map(async (file) => {
-      const storageRef = ref(
-        storage,
-        `users/${userId}/${origin}/` + Date.now() + "_" + file.originalname
-      );
-      await uploadBytes(storageRef, file.buffer, {
-        contentType: "image/jpeg",
-      });
-      await getDownloadURL(storageRef).then((url) => {
-        paths.push(url);
-      });
-    })
-  );
 
-  return paths;
+  try {
+    await Promise.all(
+      files.map(async (file) => {
+        if (file.size > 500000) throw Error("max size");
+        if (file.mimetype != "image/jpeg") throw Error("invalid file");
+
+        const storageRef = ref(
+          storage,
+          `users/${userId}/${origin}/` + Date.now() + "_" + file.originalname
+        );
+        await uploadBytes(storageRef, file.buffer, {
+          contentType: "image/jpeg",
+        });
+        await getDownloadURL(storageRef).then((url) => {
+          paths.push(url);
+        });
+      })
+    );
+    return paths;
+  } catch (err) {
+    throw Error(err)
+  }
 };
 
 /* if (files !== null) {

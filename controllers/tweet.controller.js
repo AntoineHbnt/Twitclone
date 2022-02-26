@@ -6,10 +6,17 @@ const { uploadFiles } = require("../utils/upload.utils");
 
 module.exports.createTweet = async (req, res) => {
   let files = req.files;
-  let filepaths = await uploadFiles(files, req.params.id, "tweet");
-  
+  let filepaths = [];
+
   if (!ObjectId.isValid(req.params.id))
     return res.status(404).send("Unknown ID : " + req.params.id);
+
+  try {
+    filepaths = await uploadFiles(files, req.params.id, "tweet");
+  } catch (err) {
+    let errors = uploadErrors(err);
+    return res.status(201).send(errors)
+  }
 
   try {
     const tweet = await TweetModel.create({
@@ -30,7 +37,7 @@ module.exports.createTweet = async (req, res) => {
 
     return res.status(200).send(tweet);
   } catch (err) {
-    console.log(err);
+    return res.status(201).send(err.message);
   }
 };
 
@@ -75,7 +82,7 @@ module.exports.getThread = async (req, res) => {
         await Promise.all(
           followingUser.tweets.map(async (tweetId) => {
             tweet = await TweetModel.findById(tweetId).populate("posterUser");
-            thread.push(tweet);
+            if (tweet) thread.push(tweet);
           })
         );
       })
