@@ -12,19 +12,20 @@ const Thread = () => {
   const thread = useSelector((state) => state.threadReducer);
 
   useEffect(() => {
-    if (loadTweet) {
-      dispatch(getThread(uid));
-      setLoadTweet(false);
-    }
-  }, [loadTweet]);
+    dispatch(getThread(uid));
+    !isEmpty(thread[0]) && setLoadTweet(false);
+  }, [thread]);
 
-  return (
-    <div>
+  return loadTweet ? (
+    <div className="loading" >
+      <img src="./img/icons/load.svg"/>
+    </div>
+  ) : (
+    <div className="thread">
       {!isEmpty(thread[0]) &&
         thread.map((tweet) => {
           return <Tweet key={tweet._id} tweet={tweet} />;
-        })
-      }
+        })}
     </div>
   );
 };
