@@ -3,6 +3,14 @@
 .tweet-container {
   padding: 0 1rem 0 1rem;
   margin-bottom: -1px;
+  border-bottom: 1px rgb(239, 243, 244) solid;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  &:hover{
+    background-color: rgba(0,0,0,0.03);
+  }
+
   .tweet-wrapper {
     .tweet-origin {
       padding-top: 0.75rem;
@@ -32,8 +40,11 @@
       }
     }
     .tweet-content-container {
+      width: 100%;
       .tweet-content-wrapper {
+        width: 100%;
         display: flex;
+        overflow: hidden;
         .picture {
           margin-right: 0.75rem;
           img {
@@ -43,6 +54,8 @@
           }
         }
         .content-wrapper {
+          max-width: calc(100% - 3.75rem);
+          box-sizing: border-box;
           .top {
             display: flex;
             justify-content: space-between;
@@ -72,9 +85,12 @@
             }
           }
           .bottom {
+            width: 100%;
             .tweet {
+              width: 100%;
               font-size: 1rem;
               line-height: 1.25rem;
+              overflow-wrap: break-word;
             }
             
           }
