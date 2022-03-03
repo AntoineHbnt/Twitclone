@@ -14,7 +14,7 @@ export const dateTweetParser = (time) => {
   const dateDifference = (now - timestamp) / 1000;
 
   let options =
-    tweetCreation.getFullYear() == new Date().getFullYear()
+    tweetCreation.getFullYear() === new Date().getFullYear()
       ? {
           month: "short",
           day: "numeric",

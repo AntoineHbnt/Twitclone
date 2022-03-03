@@ -12,7 +12,7 @@ const Thread = () => {
   const thread = useSelector((state) => state.threadReducer);
 
   useEffect(() => {
-    dispatch(getThread(uid));
+    loadTweet && dispatch(getThread(uid));
     !isEmpty(thread[0]) && setLoadTweet(false);
   }, [thread]);
 

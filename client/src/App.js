@@ -13,8 +13,8 @@ function App() {
   const [uid, setUid] = useState();
   const dispatch = useDispatch();
 
-  useEffect(async () => {
-    await axios({
+  useEffect(() => {
+    axios({
       method: "get",
       url: `${process.env.REACT_APP_API_URL}jwtid`,
       withCredentials: true,
@@ -23,7 +23,7 @@ function App() {
       .catch((err) => console.log(err));
 
     if(uid) dispatch(getUser(uid))
-  }, [uid]);
+  }, [uid, dispatch]);
 
   return (
     <UidContext.Provider value={uid}>
