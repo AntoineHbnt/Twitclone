@@ -1,9 +1,14 @@
 @import "./audienceModal";
 @import "./counter";
+@import "./mediaPreview";
 
 .tweet-input-container {
   width: 100%;
   padding: 0.25rem 0 0.25rem 0;
+
+  &.sending {
+    opacity: 40%;
+  }
 
   .tweet-input-wrapper {
     width: 100%;
@@ -40,11 +45,11 @@
         .input-field-wrapper {
           width: 100%;
           min-height: 3.25rem;
-          max-height: 45rem;
-          overflow-y: auto;
           .DraftEditor-root {
             font-size: 1.25rem;
             font-weight: 300;
+            overflow-y: auto;
+            max-height: 45rem;
             line-height: 1.5rem;
             padding: 0.75rem 0 0.75rem 0;
             .public-DraftEditorPlaceholder-root {
@@ -99,83 +104,98 @@
         }
       }
 
-      .tweet-option {
-        width: 100%;
-        .tweet-option-wrapper {
-          display: flex;
-          justify-content: space-between;
-          .left {
-            width: fit-content;
-            .option-container {
+      .bottom {
+        display: flex;
+        align-items: center;
+        .tweet-option {
+          width: 100%;
+          .tweet-option-wrapper {
+            display: flex;
+            justify-content: space-between;
+            .left {
               width: fit-content;
-              .option-wrapper {
-                margin-top: 0.75rem;
-                display: flex;
-                .option-logo {
+              .option-container {
+                width: fit-content;
+                .option-wrapper {
+                  margin-top: 0.75rem;
                   display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  width: 2.25rem;
-                  height: 2.25rem;
-                  border-radius: 9999px;
-                  cursor: pointer;
-                  transition: background-color ease-in 0.1s;
+                  .option-logo {
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 2.25rem;
+                    height: 2.25rem;
+                    border-radius: 9999px;
+                    cursor: pointer;
+                    transition: background-color ease-in 0.1s;
 
-                  &:hover {
-                    background-color: rgba(29, 155, 240, 0.094);
-                  }
+                    &:hover {
+                      background-color: rgba(29, 155, 240, 0.094);
+                    }
 
-                  &:first-child {
-                    margin-left: -0.5rem;
-                  }
+                    &:first-child {
+                      margin-left: -0.5rem;
+                    }
 
-                  img {
-                    width: 1.25rem;
-                    height: 1.25rem;
+                    img {
+                      width: 1.25rem;
+                      height: 1.25rem;
+                    }
+
+                    input {
+                      cursor: pointer;
+                      position: absolute;
+                      appearance: none;
+                      width: 100%;
+                      height: 100%;
+                      opacity: 0;
+                      overflow: hidden;
+                    }
                   }
                 }
               }
             }
           }
-          .right {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            width: fit-content;
-            margin-top: 0.75rem;
-            .tweet-btn-container {
-              height: 100%;
-              &.disable {
-                opacity: 0.5;
-              }
+        }
+        .right {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          width: fit-content;
+          margin-top: 0.75rem;
+          .tweet-btn-container {
+            height: 100%;
+            &.disable {
+              opacity: 0.5;
+            }
 
-              &:not(.disable) {
-                .tweet-btn-wrapper {
-                  cursor: pointer;
-                  transition: background-color 0.1s ease-in;
-
-                  &:hover {
-                    background-color: rgb(27, 143, 221);
-                  }
-                  label {
-                    cursor: pointer;
-                  }
-                }
-              }
+            &:not(.disable) {
               .tweet-btn-wrapper {
-                height: 2.25rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 9999px;
-                background-color: $color-1;
-                padding: 0 1rem 0 1rem;
-                margin-left: 0.75rem;
-                border: 1px;
+                cursor: pointer;
+                transition: background-color 0.1s ease-in;
 
-                label {
-                  color: $color-2;
+                &:hover {
+                  background-color: rgb(27, 143, 221);
                 }
+                label {
+                  cursor: pointer;
+                }
+              }
+            }
+            .tweet-btn-wrapper {
+              height: 2.25rem;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 9999px;
+              background-color: $color-1;
+              padding: 0 1rem 0 1rem;
+              margin-left: 0.75rem;
+              border: 1px;
+
+              label {
+                color: $color-2;
               }
             }
           }

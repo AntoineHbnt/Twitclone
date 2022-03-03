@@ -1,5 +1,7 @@
-import React from "react";
-import { Editor, EditorState, CompositeDecorator } from "draft-js";
+import React, { useEffect } from "react";
+import { Editor, EditorState, CompositeDecorator} from "draft-js";
+import { useDispatch } from "react-redux";
+import { updateMessage } from "../../actions/tweetInput.action";
 
 const Decorated = ({ children }) => {
   return <span style={{ background: "#fb9fa8" }}>{children}</span>;
@@ -22,7 +24,9 @@ const createDecorator = () =>
     },
   ]);
 
-export default function TextInput({setText}) {
+export default function TextInput() {
+  const dispatch = useDispatch();
+
   const [editorState, setEditorState] = React.useState(
     EditorState.createEmpty(createDecorator())
   );
@@ -33,9 +37,9 @@ export default function TextInput({setText}) {
     editor.current.focus();
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     focusEditor();
-    setText(editorState.getCurrentContent().getPlainText('\u0001'));
+    dispatch(updateMessage(editorState.getCurrentContent().getPlainText('\u0001')));
   }, [editorState]);
 
   return (
