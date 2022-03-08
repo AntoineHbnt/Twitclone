@@ -8,7 +8,7 @@ import {
 const initialState = {
   message: "",
   audience: "public",
-  media: {},
+  media: [],
   showAudienceModal: false,
 };
 

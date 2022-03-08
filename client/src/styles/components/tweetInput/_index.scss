@@ -130,7 +130,7 @@
                     cursor: pointer;
                     transition: background-color ease-in 0.1s;
 
-                    &:hover {
+                    &:not(.disable):hover {
                       background-color: rgba(29, 155, 240, 0.094);
                     }
 
@@ -144,13 +144,21 @@
                     }
 
                     input {
-                      cursor: pointer;
                       position: absolute;
                       appearance: none;
                       width: 100%;
                       height: 100%;
                       opacity: 0;
                       overflow: hidden;
+                    }
+
+                    &.disable{
+                      opacity: 30%;
+                      cursor: default;
+
+                      &:hover{
+                        pointer-events: none;
+                      }
                     }
                   }
                 }

@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { Editor, EditorState, CompositeDecorator} from "draft-js";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { Editor, EditorState, CompositeDecorator, ContentState } from "draft-js";
+import { useDispatch, useSelector } from "react-redux";
 import { updateMessage } from "../../actions/tweetInput.action";
 
 const Decorated = ({ children }) => {
@@ -26,8 +26,9 @@ const createDecorator = () =>
 
 export default function TextInput() {
   const dispatch = useDispatch();
+  const text = useSelector((state) => state.tweetInputReducer.message);
 
-  const [editorState, setEditorState] = React.useState(
+  const [editorState, setEditorState] = useState(
     EditorState.createEmpty(createDecorator())
   );
 
@@ -38,9 +39,18 @@ export default function TextInput() {
   }
 
   useEffect(() => {
-    focusEditor();
-    dispatch(updateMessage(editorState.getCurrentContent().getPlainText('\u0001')));
-  }, [editorState]);
+    if (text !== "%toErase%") {
+      focusEditor();
+      dispatch(
+        updateMessage(editorState.getCurrentContent().getPlainText("\u0001"))
+      );
+    }else{
+      setEditorState(EditorState.push(editorState, ContentState.createFromText('')))
+      dispatch(
+        updateMessage(editorState.getCurrentContent().getPlainText("\u0001"))
+      );
+    }
+  }, [editorState, text]);
 
   return (
     <Editor

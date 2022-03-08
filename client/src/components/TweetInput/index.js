@@ -3,9 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getThread } from "../../actions/thread.actions";
 import {
   updateAudience,
+  updateMedia,
+  updateMessage,
   updateShowAudienceModal,
 } from "../../actions/tweetInput.action";
 import { addTweet } from "../../actions/tweets.actions";
+import { isEmpty } from "../Utils";
 import AudienceModal from "./AudienceModal";
 import CircleCounter from "./CircleCounter";
 import MediaPreview from "./MediaPreview";
@@ -28,24 +31,37 @@ const TweetInput = () => {
 
   const dispatch = useDispatch();
 
-  const handlePost = async () => {
-    if (tweetInputData.message) {
-      const data = new FormData();
-      data.append("pictures", (media.length == 0 ? null : media));
-      data.append("message", message);
-      data.append("audience", audience);
-      setSending(true);
-      await dispatch(addTweet(userData._id, data));
-      await dispatch(getThread(userData._id));
-      setSending(false);
+  const cancelTweet = () => {
+    dispatch(updateMedia([]));
+    dispatch(updateMessage("%toErase%"));
+  };
+
+  const handleTweetData = () => {
+    const data = new FormData();
+    if (!isEmpty(media)) {
+      media.map((item) => {
+        data.append("pictures", item);
+      });
     }
+    data.append("message", message);
+    data.append("audience", audience);
+    return data;
+  };
+
+  const handlePost = async () => {
+    setSending(true);
+    const data = handleTweetData();
+    await dispatch(addTweet(userData._id, data));
+    await dispatch(getThread(userData._id));
+    cancelTweet();
+    setSending(false);
   };
 
   useEffect(() => {
-    message.length > 280 || message.length < 1
-      ? setAvailable(false)
-      : setAvailable(true);
-  }, [message]);
+    (message.length > 0 && message.length < 280) || media !== undefined
+      ? setAvailable(true)
+      : setAvailable(false);
+  }, [message, media]);
 
   return (
     <div className={"tweet-input-container" + (sending ? " sending" : "")}>
@@ -64,7 +80,7 @@ const TweetInput = () => {
               <TextInput />
             </div>
           </div>
-          <MediaPreview />
+          <MediaPreview onClick={(e) => console.log("click :", e.target)} />
           {showAudience && (
             <div className="audience-select">
               <div className="audience-select-wrapper">

@@ -25,7 +25,7 @@ module.exports.createTweet = async (req, res) => {
       audience: req.body.audience,
       pictures: req.files !== null ? filepaths : [],
     });
-    const user = await UserModel.findByIdAndUpdate(
+    await UserModel.findByIdAndUpdate(
       req.params.id,
       {
         $addToSet: {
