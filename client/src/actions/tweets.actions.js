@@ -25,15 +25,13 @@ export const addTweet = (uid, data) => {
     return axios({
       method: "post",
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
       url: `${process.env.REACT_APP_API_URL}api/tweet/${uid}`,
       data: data,
       withCredentials: true,
-    }).then((res) => {
-      if (res.data.errors)
-        dispatch({ type: GET_TWEET_ERRORS, payload: res.data.errors });
-      else dispatch({ type: GET_TWEET_ERRORS, payload: "" });
+    }).catch((err) => {
+      console.log(err);
     });
   };
 };

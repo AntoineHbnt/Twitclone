@@ -1,0 +1,15 @@
+.error-modal-container{
+    position: fixed;
+    left: 50%;
+    bottom: 1rem;
+    transform: translate(-50%);
+    border-radius: .25rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: $color-1;
+    .error-modal-text{
+        color: $color-2;
+        font-size: 1rem;
+        margin: 0 0.5rem 0 0.5rem;
+    }
+}

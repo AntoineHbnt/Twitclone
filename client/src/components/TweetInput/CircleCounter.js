@@ -32,7 +32,7 @@ const CircleCounter = ({ textLength }) => {
 
   return (
     <div className="counter-wrapper">
-      <div className={"counter" + ((textLength < 290 && textLength != 0 ) ? " active" : " disable")}>
+      <div className={"counter" + ((textLength < 290 && textLength !== 0 ) ? " active" : " disable")}>
         <svg
           height="100%"
           viewBox="0 0 30 30"

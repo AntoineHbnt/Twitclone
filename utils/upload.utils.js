@@ -15,8 +15,8 @@ module.exports.uploadFiles = async (files, userId, origin) => {
   try {
     await Promise.all(
       files.map(async (file) => {
+        if (file.mimetype !== "image/jpeg") throw Error("invalid file");
         if (file.size > 500000) throw Error("max size");
-        if (file.mimetype != "image/jpeg") throw Error("invalid file");
 
         const storageRef = ref(
           storage,

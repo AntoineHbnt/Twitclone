@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { addTweetError } from "../../../actions/error.action";
 import { updateMedia } from "../../../actions/tweetInput.action";
 
 const Media = () => {
@@ -8,12 +9,38 @@ const Media = () => {
   const dispatch = useDispatch();
   const media = useSelector((state) => state.tweetInputReducer.media);
 
+
+  const uploadErrors = (err) => {
+    let errors = "";
+  
+    if (err.message.includes("invalid file"))
+      errors = "Veuillez choisir au plus 4 photos";
+  
+    if (err.message.includes("max size"))
+      errors = "Le fichier est trop grand";
+  
+    return errors;
+  };
+
   const handleMedia = (e) => {
-    dispatch(updateMedia(media.concat(Array.from(e.target.files))));
+    try{
+      const files = Array.from(e.target.files)   
+      console.log(files);
+      
+      files.map((file) => {
+        if(file.type !== "image/jpeg") throw Error("invalid file")
+        if(file.size > 500000) throw Error("max size")
+      })
+      
+      dispatch(updateMedia(media.concat(files)));
+    }catch(err) {
+      const error = uploadErrors(err);
+      dispatch(addTweetError(error));
+    }
+
   }
 
   useEffect(() => {
-    console.log(4-media.length);
     media.length > 3 ? setDisable(true) : setDisable(false);
   }, [media]);
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { addTweetError } from "../../actions/error.action";
 import { getThread } from "../../actions/thread.actions";
 import {
   updateAudience,
@@ -8,6 +9,7 @@ import {
   updateShowAudienceModal,
 } from "../../actions/tweetInput.action";
 import { addTweet } from "../../actions/tweets.actions";
+import ErrorModal from "../ErrorModal";
 import { isEmpty } from "../Utils";
 import AudienceModal from "./AudienceModal";
 import CircleCounter from "./CircleCounter";
@@ -19,7 +21,9 @@ const TweetInput = () => {
   //Stores data
   const userData = useSelector((state) => state.userReducer);
   const tweetInputData = useSelector((state) => state.tweetInputReducer);
+  const error = useSelector((state) => state.errorsReducer.tweetError)
 
+  //reduxData
   const audience = tweetInputData.audience;
   const showAudienceModal = tweetInputData.showAudienceModal;
   const message = tweetInputData.message;
@@ -28,6 +32,9 @@ const TweetInput = () => {
   const [available, setAvailable] = useState(false);
   const [showAudience, setShowAudience] = useState(false);
   const [sending, setSending] = useState(false);
+  
+  //Errors
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -57,11 +64,20 @@ const TweetInput = () => {
     setSending(false);
   };
 
+  const handleError = () => {
+    setShowErrorModal(true);
+    setTimeout(() => {
+      setShowErrorModal(false)
+      dispatch(addTweetError(""));
+    }, 3000);
+  }
+
   useEffect(() => {
-    (message.length > 0 && message.length < 280) || media !== undefined
+    if(error !== "") handleError();
+    (message.length > 0 && message.length < 280) || !isEmpty(media)
       ? setAvailable(true)
       : setAvailable(false);
-  }, [message, media]);
+  }, [message, media, error]);
 
   return (
     <div className={"tweet-input-container" + (sending ? " sending" : "")}>
@@ -142,6 +158,9 @@ const TweetInput = () => {
           onClick={() => dispatch(updateShowAudienceModal(false))}
         />
       )}
+      {
+        showErrorModal && <ErrorModal text={error}/>
+      }
     </div>
   );
 };

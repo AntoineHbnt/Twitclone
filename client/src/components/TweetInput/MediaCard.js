@@ -14,7 +14,7 @@ const MediaCard = ({ previewSrc, index }) => {
           dispatch(
             updateMedia(
               media.filter((item, i) => {
-                return i != index;
+                return i !== index;
               })
             )
           );

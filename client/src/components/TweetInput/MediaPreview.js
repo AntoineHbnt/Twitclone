@@ -10,7 +10,7 @@ const MediaPreview = () => {
 
   const handleMedia = async () => {
     setPreviews([]);
-    if (media != undefined) {
+    if (media !== undefined) {
       for (let i = 0; i < media.length; i++) {
         const file = media[i];
         const reader = new FileReader();
@@ -27,12 +27,11 @@ const MediaPreview = () => {
   
 
   useEffect(() => {
-    console.log(media);
     handleMedia();
   }, [media]);
 
   const previewDisplay = () => {
-    if (media != undefined) {
+    if (media !== undefined) {
       switch (media.length) {
         case 1:
           return (
