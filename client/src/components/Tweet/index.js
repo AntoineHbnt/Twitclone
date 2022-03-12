@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { dateTweetParser } from "../Utils";
 import Interaction from "./Interactions";
+import MediaContent from "./MediaContent";
 
 const Tweet = ({ tweet }) => {
   const [loadAuthor, setLoadAuthor] = useState(true);
@@ -64,6 +65,7 @@ const Tweet = ({ tweet }) => {
               <div className="bottom">
                 <div className="tweet">
                   <span>{tweet.message}</span>
+                  <MediaContent medias={tweet.pictures}/>
                 </div>
                 <Interaction tweetData={tweet} />
               </div>

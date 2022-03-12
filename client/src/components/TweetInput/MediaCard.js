@@ -7,7 +7,7 @@ const MediaCard = ({ previewSrc, index }) => {
   const media = useSelector((state) => state.tweetInputReducer.media);
 
   return (
-    <div className="media-card">
+    <div className="media-preview-card">
       <div
         className="remove-media-btn"
         onClick={async () => {

@@ -1,4 +1,4 @@
-.media-card {
+.media-preview-card {
   position: relative;
 
   img {
@@ -40,7 +40,7 @@
   height: 17.75rem;
   column-gap: 0.75rem;
 
-  .media-card {
+  .media-preview-card {
     flex-grow: 1;
     width: 100%;
   }
@@ -52,7 +52,7 @@
     flex-grow: 1;
     row-gap: 0.75rem;
 
-    .media-card {
+    .media-preview-card {
       max-height: 8.5rem;
     }
   }

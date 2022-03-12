@@ -45,11 +45,11 @@ const TweetInput = () => {
 
   const handleTweetData = () => {
     const data = new FormData();
-    if (!isEmpty(media)) {
-      media.map((item) => {
+    
+    !isEmpty(media) && media.map((item) => {
         data.append("pictures", item);
       });
-    }
+    
     data.append("message", message);
     data.append("audience", audience);
     return data;
