@@ -1,33 +1,45 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { favTweet, unfavTweet } from "../../../actions/thread.actions";
+import { UidContext } from "../../AppContext";
 
-const FavButton = ({tweetId,value}) => {
-    
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [fav, setFav] = useState(false);
+const FavButton = ({ tweetId, value }) => {
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.userReducer);
+  const favs = userData.favs;
 
-    return (
-        <div  className="interaction red fav">
-          <div
-            className={"logo fav" + (isAnimating ? " is_animating" : "")}
-            onClick={() => {
-              setIsAnimating(true);
-              setFav(!fav);
-            }}
-            onAnimationEnd={(e) => setIsAnimating(false)}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              className="interaction-logo"
-            >
-              <g>
-                <path d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z"></path>
-              </g>
-            </svg>
-          </div>
-          <div className="number">{value}</div>
-        </div>
-    );
+  const [fav, setFav] = useState(favs.includes(tweetId));
+
+  const handleFav = () => {
+    if (!fav) dispatch(favTweet(userData._id, tweetId));
+    if (fav) dispatch(unfavTweet(userData._id, tweetId));
+    setFav(!fav);
+  };
+
+  return (
+    <div className={"interaction fav"+(fav ? " active" : "")}>
+      <div className="logo" onClick={() => handleFav()}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          className="interaction-logo"
+        >
+          <path
+            className="center"
+            d="M12,20.7c-2-0.1-9.3-6.3-9.3-12.4c0-2.7,2.2-5,4.6-5h0.3l0,0c2.6,0.2,4,2.8,4.3,3.4l0,0c0.3-0.6,1.9-3.4,4.6-3.4
+            c2.5,0,4.6,2.3,4.6,5C21.3,14.4,14,20.6,12,20.7L12,20.7L12,20.7z"
+            />
+          <path
+            className="outline"
+            d="M7.3,4L7.3,4c2.5,0,4,2.9,4,3c0.1,0.3,0.4,0.4,0.7,0.4s0.6-0.1,0.7-0.4c0,0,1.4-3,4-3c2.1,0,3.9,2,3.9,4.2
+		c0,5.7-7,11.6-8.5,11.7C10.5,19.9,3.5,14,3.5,8.3C3.5,6,5.3,4,7.3,4 M7.3,2.5C4.4,2.5,2,5.2,2,8.3c0,6.3,7.4,13.1,10,13.2l0.1,0
+		l0.1,0c2.6-0.1,10-6.9,10-13.2c0-3.1-2.5-5.7-5.4-5.7c-2.2,0-3.8,1.5-4.6,2.7c-0.8-1.1-2.1-2.4-4-2.7l0,0L7.3,2.5L7.3,2.5z"
+          />
+        </svg>
+      </div>
+      <div className="number">{value}</div>
+    </div>
+  );
 };
 
 export default FavButton;

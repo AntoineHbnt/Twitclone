@@ -1,0 +1,77 @@
+.interaction-container {
+  $blue: $color-1;
+  $blue-background: rgba(29, 155, 240, 0.1);
+
+  $red: rgb(249, 24, 128);
+  $red-background: rgba(249, 24, 128, 0.1);
+
+  $green: rgb(0, 186, 124);
+  $green-background: rgba(0, 186, 124, 0.1);
+
+  .fav {
+    .center {
+      fill: none;
+    }
+
+    &:hover {
+      .logo {
+        background-color: $red-background;
+        .interaction-logo {
+          fill: $red !important;
+        }
+      }
+      .number {
+        color: $red;
+      }
+    }
+
+    &.active{
+      color: $red;
+      .outline{
+        fill: $red !important;
+      }
+      .center{
+        fill: $red !important;
+      }
+    }
+  }
+
+  .comment {
+    &:hover {
+      .logo {
+        background-color: $blue-background;
+        .interaction-logo {
+          fill: $blue !important;
+        }
+      }
+      .number {
+        color: $blue;
+      }
+    }
+  }
+
+  .retweet {
+    &:hover {
+      .logo {
+        background-color: $green-background;
+        .interaction-logo {
+          fill: $green !important;
+        }
+      }
+      .number {
+        color: $green;
+      }
+    }
+  }
+
+  .share {
+    &:hover {
+      .logo {
+        background-color: $blue-background;
+        .interaction-logo {
+          fill: $blue !important;
+        }
+      }
+    }
+  }
+}

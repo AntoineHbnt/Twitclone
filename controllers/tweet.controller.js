@@ -119,18 +119,21 @@ module.exports.deleteTweet = async (req, res) => {
 };
 
 module.exports.fav = async (req, res) => {
-  if (!ObjectId.isValid(req.params.id))
-    return res.status(404).send("Unknown ID : " + req.params.id);
+  const uid = req.body.uid;
+  const tweetId = req.params.id
 
-  if (!ObjectId.isValid(req.body.tweetToFav))
-    return res.status(404).send("Unknown ID : " + req.body.tweetToFav);
+  if (!ObjectId.isValid(uid))
+    return res.status(404).send("Unknown ID : " + uid);
+
+  if (!ObjectId.isValid(tweetId))
+    return res.status(404).send("Unknown ID : " + tweetId);
 
   try {
     await TweetModel.findByIdAndUpdate(
-      req.body.tweetToFav,
+      tweetId,
       {
         $addToSet: {
-          favs: req.params.id,
+          favs: uid,
         },
       },
       { new: true }
@@ -139,10 +142,10 @@ module.exports.fav = async (req, res) => {
     });
 
     await UserModel.findByIdAndUpdate(
-      req.params.id,
+      uid,
       {
         $addToSet: {
-          favs: req.body.tweetToFav,
+          favs: tweetId,
         },
       },
       { new: true }
@@ -153,33 +156,36 @@ module.exports.fav = async (req, res) => {
 };
 
 module.exports.unfav = async (req, res) => {
-  if (!ObjectId.isValid(req.params.id))
-    return res.status(404).send("Unknown ID : " + req.params.id);
+  const uid = req.body.uid;
+  const tweetId = req.params.id
 
-  if (!ObjectId.isValid(req.body.tweetToUnfav))
-    return res.status(404).send("Unknown ID : " + req.body.tweetToUnfav);
+  if (!ObjectId.isValid(uid))
+    return res.status(404).send("Unknown ID : " + uid);
+
+  if (!ObjectId.isValid(tweetId))
+    return res.status(404).send("Unknown ID : " + tweetId);
 
   try {
     await TweetModel.findByIdAndUpdate(
-      req.body.tweetToUnfav,
+      tweetId,
       {
         $pull: {
-          favs: req.params.id,
+          favs: uid,
         },
       },
       { new: true }
     ).then((docs) => res.status(200).send(docs));
 
     await UserModel.findByIdAndUpdate(
-      req.params.id,
+      uid,
       {
         $pull: {
-          favs: req.body.tweetToUnfav,
+          favs: tweetId,
         },
       },
       { new: true }
     );
   } catch (err) {
-    return res.status(500).json({ message: err });
+    console.log(err);
   }
 };
