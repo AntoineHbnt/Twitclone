@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { retweet, unRetweet } from "../../../actions/thread.actions";
 
-const RetweetMenu = ({closeMenu}) => {
+const RetweetMenu = ({ closeMenu, tweetId }) => {
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.userReducer);
+  const threadData = useSelector((state) => state.threadReducer);
+  
+  const [isActive, setIsActive] = useState(threadData.userRetweets.includes(tweetId))
+
+  const handleRetweet = () => {
+    threadData.userRetweets.includes(tweetId)
+      ? dispatch(unRetweet(userData._id, tweetId))
+      : dispatch(retweet(userData._id, tweetId));
+  };
+
+  const handleQuote = () => {};
+
+  useEffect(() => {
+    setIsActive(threadData.userRetweets.includes(tweetId))
+  },[threadData])
 
 
   return (
     <>
       <div className="retweet-menu-container">
         <div className="retweet-menu-wrapper">
-          <div className="retweet-menu-btn">
+          <div className="retweet-menu-btn" onClick={() => handleRetweet()}>
             <div className="retweet-menu-btn-wrapper">
               <svg
                 viewBox="0 0 24 24"
@@ -20,11 +39,11 @@ const RetweetMenu = ({closeMenu}) => {
                 </g>
               </svg>
               <div className="label">
-                <span>Retweeter</span>
+                {isActive ? <span>Annuler le Retweet</span> : <span>Retweeter</span> }
               </div>
             </div>
           </div>
-          <div className="retweet-menu-btn">
+          <div className="retweet-menu-btn" onClick={() => handleQuote()}>
             <div className="retweet-menu-btn-wrapper">
               <svg
                 viewBox="0 0 24 24"

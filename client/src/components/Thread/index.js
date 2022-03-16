@@ -9,7 +9,7 @@ const Thread = () => {
   const [loadTweet, setLoadTweet] = useState(true);
   const uid = useContext(UidContext);
   const dispatch = useDispatch();
-  const thread = useSelector((state) => state.threadReducer);
+  const thread = useSelector((state) => state.threadReducer.timeline);
 
   useEffect(() => {
     loadTweet && dispatch(getThread(uid));
@@ -22,9 +22,9 @@ const Thread = () => {
     </div>
   ) : (
     <div className="thread">
-      {!isEmpty(thread[0]) &&
-        thread.map((tweet) => {
-          return <Tweet key={tweet._id} tweet={tweet} />;
+      {!isEmpty(thread[0].tweet) &&
+        thread.map((e, i) => {
+          return <Tweet key={e.tweet._id+i} tweet={e.tweet} type={e.type} followingUser={e.followingUser !== undefined ? e.followingUser : null}/>;
         })}
     </div>
   );

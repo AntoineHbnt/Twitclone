@@ -6,19 +6,25 @@ import { UidContext } from "../../AppContext";
 const FavButton = ({ tweetId, value }) => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userReducer);
-  const favs = userData.favs;
+  const threadData = useSelector((state) => state.threadReducer);
 
-  const [fav, setFav] = useState(favs.includes(tweetId));
+  const [isActive, setIsActive] = useState(threadData.userFavs.includes(tweetId));
 
-  const handleFav = () => {
-    if (!fav) dispatch(favTweet(userData._id, tweetId));
-    if (fav) dispatch(unfavTweet(userData._id, tweetId));
-    setFav(!fav);
+  const handleFav = async () => {
+    isActive
+      ? dispatch(unfavTweet(userData._id, tweetId))
+      : dispatch(favTweet(userData._id, tweetId));
+
+    setIsActive(isActive => !isActive)
   };
 
+
   return (
-    <div className={"interaction fav"+(fav ? " active" : "")}>
-      <div className="logo" onClick={() => handleFav()}>
+    <div
+      className={"interaction fav" + (isActive ? " active" : "")}
+      onClick={() => handleFav()}
+    >
+      <div className="logo">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -28,7 +34,7 @@ const FavButton = ({ tweetId, value }) => {
             className="center"
             d="M12,20.7c-2-0.1-9.3-6.3-9.3-12.4c0-2.7,2.2-5,4.6-5h0.3l0,0c2.6,0.2,4,2.8,4.3,3.4l0,0c0.3-0.6,1.9-3.4,4.6-3.4
             c2.5,0,4.6,2.3,4.6,5C21.3,14.4,14,20.6,12,20.7L12,20.7L12,20.7z"
-            />
+          />
           <path
             className="outline"
             d="M7.3,4L7.3,4c2.5,0,4,2.9,4,3c0.1,0.3,0.4,0.4,0.7,0.4s0.6-0.1,0.7-0.4c0,0,1.4-3,4-3c2.1,0,3.9,2,3.9,4.2

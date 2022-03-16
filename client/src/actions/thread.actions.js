@@ -3,6 +3,8 @@ import axios from "axios";
 export const GET_THREAD = "GET_THREAD";
 export const FAV_TWEET = "FAV_TWEET";
 export const UNFAV_TWEET = "UNFAV_TWEET";
+export const RETWEET_TWEET = "RETWEET_TWEET";
+export const UNRETWEET_TWEET = "UNRETWEET_TWEET";
 
 export const getThread = (uid) => {
   return (dispatch) => {
@@ -40,6 +42,34 @@ export const unfavTweet = (uid, tweetId) => {
       }
     }).then((res) => {
       dispatch({type: UNFAV_TWEET, payload: {tweetId, uid}})
+    })
+  }
+}
+
+export const retweet = (uid, tweetId) => {
+  return (dispatch) => {
+    return axios({
+      method: "patch",
+      url: `${process.env.REACT_APP_API_URL}api/tweet/retweet/${tweetId}`,
+      data: {
+        "uid": uid
+      }
+    }).then(() => {
+      dispatch({type: RETWEET_TWEET, payload: {tweetId, uid}})
+    })
+  }
+}
+
+export const unRetweet = (uid, tweetId) => {
+  return (dispatch) => {
+    return axios({
+      method: "patch",
+      url: `${process.env.REACT_APP_API_URL}api/tweet/unretweet/${tweetId}`,
+      data: {
+        "uid": uid
+      }
+    }).then(() => {
+      dispatch({type: UNRETWEET_TWEET, payload: {tweetId, uid}})
     })
   }
 }

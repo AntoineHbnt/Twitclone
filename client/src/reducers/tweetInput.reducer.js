@@ -8,6 +8,7 @@ import {
 const initialState = {
   message: "",
   audience: "public",
+  type: "tweet",
   media: [],
   showAudienceModal: false,
 };

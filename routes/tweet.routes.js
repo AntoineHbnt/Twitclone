@@ -13,5 +13,7 @@ router.delete("/:id", tweetController.deleteTweet);
 //tweet action
 router.patch("/fav/:id", tweetController.fav);
 router.patch("/unfav/:id", tweetController.unfav);
+router.patch("/retweet/:id", tweetController.retweet);
+router.patch("/unretweet/:id", tweetController.unRetweet);
 
 module.exports = router;

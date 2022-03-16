@@ -18,6 +18,15 @@ const TweetSchema = new mongoose.Schema(
       require: true,
       default: "public",
     },
+    type:{
+      type: String,
+      require: true,
+      default: "tweet"
+    },
+    retweetRef:{
+      type: mongoose.SchemaTypes.ObjectId,
+      ref:"tweet",
+    },
     comments: {
       type: [String],
       required: true,

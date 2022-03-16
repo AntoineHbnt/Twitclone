@@ -60,6 +60,9 @@ const userSchema = new mongoose.Schema(
     favs: {
       type: [String],
     },
+    retweets: {
+      type: [String],
+    },
     followers: {
       type: [String],
     },

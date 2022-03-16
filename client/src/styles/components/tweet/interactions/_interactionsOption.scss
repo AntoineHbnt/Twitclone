@@ -25,12 +25,12 @@
       }
     }
 
-    &.active{
+    &.active {
       color: $red;
-      .outline{
+      .outline {
         fill: $red !important;
       }
-      .center{
+      .center {
         fill: $red !important;
       }
     }
@@ -60,6 +60,12 @@
       }
       .number {
         color: $green;
+      }
+    }
+    &.active {
+      color: $green;
+      .outline {
+        fill: $green;
       }
     }
   }

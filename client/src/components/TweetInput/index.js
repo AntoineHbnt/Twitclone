@@ -52,6 +52,7 @@ const TweetInput = () => {
     
     data.append("message", message);
     data.append("audience", audience);
+    data.append("type", "tweet");
     return data;
   };
 

@@ -3,12 +3,14 @@ import { useSelector } from "react-redux";
 import { dateTweetParser } from "../Utils";
 import Interaction from "./Interactions";
 import MediaContent from "./MediaContent";
+import Quote from "./Quote";
+import RetweetContent from "./Quote";
 
-const Tweet = ({ tweet }) => {
+const Tweet = ({ tweet, type, followingUser }) => {
   const [loadAuthor, setLoadAuthor] = useState(true);
-  const users = useSelector((state) => state.usersReducer);
 
   useEffect(() => {
+    console.log({tweet});
     if (loadAuthor) {
       setLoadAuthor(false);
     }
@@ -19,14 +21,26 @@ const Tweet = ({ tweet }) => {
       <div className="tweet-wrapper">
         <div className="tweet-origin">
           <div className="tweet-origin-container">
-            {/*
-            TODO: handle tweet origin (ex: show if it's a fav/rt from following user)
             <div className="tweet-origin-wrapper">
-              <div className="logo">
-                <img src="./img/icons/tweet/origin/follow-fav.svg" alt="" />
-              </div>
-              <div className="label">LautreAntoine a aimé</div>
-            </div> */}
+              {type == "retweet" && (
+                <>
+                  <div className="logo">
+                    <img src="./img/icons/tweet/origin/retweet.svg" alt="" />
+                  </div>
+                  <div className="label">
+                    {followingUser ? followingUser.userPseudo+" a retweeté" : "vous avez retweeté"}
+                  </div>
+                </>
+              )}
+              {type == "fav" && (
+                <>
+                  <div className="logo">
+                    <img src="./img/icons/tweet/origin/follow-fav.svg" alt="" />
+                  </div>
+                  <div className="label">{followingUser.userPseudo} a aimé</div>
+                </>
+              )}
+            </div>
           </div>
         </div>
         <div className="tweet-content-container">
@@ -55,7 +69,9 @@ const Tweet = ({ tweet }) => {
                     <div className="break-point">
                       <span>&middot;</span>
                     </div>
-                    <div className="tweet-age">{dateTweetParser(tweet.createdAt)}</div>
+                    <div className="tweet-age">
+                      {dateTweetParser(tweet.createdAt)}
+                    </div>
                   </div>
                 </div>
                 <div className="more-btn">
@@ -63,11 +79,19 @@ const Tweet = ({ tweet }) => {
                 </div>
               </div>
               <div className="bottom">
-                <div className="tweet">
-                  <span>{tweet.message}</span>
-                  <MediaContent medias={tweet.pictures}/>
-                </div>
-                <Interaction tweetData={tweet} />
+                {(type === "tweet" || type === "fav" || type === "retweet") && (
+                  <div className="tweet">
+                    <span>{tweet.message}</span>
+                    <MediaContent medias={tweet.pictures} />
+                  </div>
+                )}
+                {type === "quote" && (
+                  <div className="tweet">
+                    <Quote tweetId={tweet.message} />
+                  </div>
+                )}
+
+                <Interaction tweet={tweet} />
               </div>
             </div>
           </div>
