@@ -38,7 +38,8 @@ const userSchema = new mongoose.Schema(
     },
     picture: {
       type: String,
-      default: "https://firebasestorage.googleapis.com/v0/b/twiclone-339909.appspot.com/o/users%2Fdefault%2Fdefault_profile.png?alt=media&token=c8568032-b59e-444e-bc70-362b237632b3",
+      default:
+        "https://firebasestorage.googleapis.com/v0/b/twiclone-339909.appspot.com/o/users%2Fdefault%2Fdefault_profile.png?alt=media&token=c8568032-b59e-444e-bc70-362b237632b3",
     },
     bio: {
       type: String,
@@ -58,10 +59,22 @@ const userSchema = new mongoose.Schema(
       require: true,
     },
     favs: {
-      type: [String],
+      type: [
+        {
+          id: String,
+          type: { type: String },
+          timestamp: Number,
+        },
+      ],
     },
     retweets: {
-      type: [String],
+      type: [
+        {
+          id: String,
+          type: { type: String },
+          timestamp: Number,
+        },
+      ],
     },
     followers: {
       type: [String],
@@ -71,8 +84,12 @@ const userSchema = new mongoose.Schema(
     },
     tweets: [
       {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: "tweet",
+        id: {
+          type: mongoose.SchemaTypes.ObjectId,
+          ref: "tweet",
+        },
+        type: { type: String },
+        timestamp: Number,
       },
     ],
     notifications: {
@@ -84,15 +101,6 @@ const userSchema = new mongoose.Schema(
         },
       ],
       require: true,
-    },
-    feed: {
-      type: [
-        {
-          tweetId: String,
-          tweetType: String,
-          timestamps: Number,
-        },
-      ],
     },
   },
   {

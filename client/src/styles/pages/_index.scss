@@ -4,19 +4,29 @@
 #root {
   display: flex;
   justify-content: center;
+  height: fit-content;
 }
 
 .page-container {
   display: flex;
   justify-content: center;
   width: 100vw;
-  height: 100vh;
+  height: fit-content;
   overflow: hidden;
-  
+
+  header{
+    flex-grow: 1;
+  }
+
+  main{
+    flex-grow: 2;
+  }
 
   .main-container {
       width: fit-content;
       min-height: 100vh;
+      height: 100vh;
+      overflow: auto;
 
     .main-wrapper {
       display: flex;

@@ -12,7 +12,7 @@ const RetweetButton = ({ tweetId, value }) => {
 
   useEffect(() => {
     setIsActive(threadData.userRetweets.includes(tweetId))
-  },[threadData])
+  },[threadData.userRetweets])
 
   return (
     <div className={"interaction green retweet"+(isActive ? " active" : "")} onClick={() => setShowRetweetMenu(showRetweetMenu => !showRetweetMenu)}>

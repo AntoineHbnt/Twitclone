@@ -9,22 +9,33 @@ const Thread = () => {
   const [loadTweet, setLoadTweet] = useState(true);
   const uid = useContext(UidContext);
   const dispatch = useDispatch();
-  const thread = useSelector((state) => state.threadReducer.timeline);
+  const thread = useSelector((state) => state.threadReducer);
+  const timeline = useSelector((state) => state.threadReducer.timeline);
+
 
   useEffect(() => {
     loadTweet && dispatch(getThread(uid));
-    !isEmpty(thread[0]) && setLoadTweet(false);
+    !isEmpty(timeline[0]) && setLoadTweet(false);
   }, [thread]);
 
   return loadTweet ? (
-    <div className="loading" >
-      <img src="./img/icons/load.svg"/>
+    <div className="loading">
+      <img src="./img/icons/load.svg" />
     </div>
   ) : (
     <div className="thread">
-      {!isEmpty(thread[0].tweet) &&
-        thread.map((e, i) => {
-          return <Tweet key={e.tweet._id+i} tweet={e.tweet} type={e.type} followingUser={e.followingUser !== undefined ? e.followingUser : null}/>;
+      {!isEmpty(timeline[0].tweet) &&
+        timeline.map((e, i) => {
+          return (
+            <Tweet
+              key={e.tweet._id + i}
+              tweet={e.tweet}
+              type={e.type}
+              followingUser={
+                e.followingUser !== undefined ? e.followingUser : null
+              }
+            />
+          );
         })}
     </div>
   );

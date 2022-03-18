@@ -15,9 +15,11 @@ const FavButton = ({ tweetId, value }) => {
       ? dispatch(unfavTweet(userData._id, tweetId))
       : dispatch(favTweet(userData._id, tweetId));
 
-    setIsActive(isActive => !isActive)
   };
 
+  useEffect(() => {
+    setIsActive(isActive => threadData.userFavs.includes(tweetId))
+  }, [threadData.userFavs])
 
   return (
     <div

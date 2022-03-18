@@ -15,13 +15,24 @@ const Interaction = ({ tweet }) => {
         return abbreviateNumber(num.toString(), 1)
     } else return abbreviateNumber(num.toString(),0)
   };
+  
+  const [nbFav, setNbFav] = useState(numberParser(tweet.favs.length));
+  const [nbRetweet, setNbRetweet] = useState(numberParser(tweet.retweets.length));
+  const [nbComment, setNbComment] = useState(numberParser(tweet.comments.length));
+
+
+  useEffect(() => {
+    setNbFav(numberParser(tweet.favs.length));
+    setNbComment(numberParser(tweet.comments.length));
+    setNbRetweet(numberParser(tweet.retweets.length));
+  }, [tweet])
 
   return (
     <div className="interaction-container">
       <div className="interaction-wrapper">
-        <CommentButton tweet={tweet} tweetId={tweetId} value={numberParser(tweet.comments.length)} />
-        <RetweetButton tweet={tweet} tweetId={tweetId} value={numberParser(tweet.retweets.length)} />
-        <FavButton tweetId={tweetId} value={numberParser(tweet.favs.length)} />
+        <CommentButton tweet={tweet} tweetId={tweetId} value={nbComment} />
+        <RetweetButton tweet={tweet} tweetId={tweetId} value={nbRetweet} />
+        <FavButton tweetId={tweetId} value={nbFav} />
         <ShareButton tweet={tweet} />
       </div>
     </div>

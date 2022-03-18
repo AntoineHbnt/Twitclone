@@ -8,6 +8,8 @@ import Log from "./Log";
 
 const Home = () => {
 
+  
+
   return (
     <main className="main-container">
       <div className="main-wrapper">

@@ -10,7 +10,6 @@ const Tweet = ({ tweet, type, followingUser }) => {
   const [loadAuthor, setLoadAuthor] = useState(true);
 
   useEffect(() => {
-    console.log({tweet});
     if (loadAuthor) {
       setLoadAuthor(false);
     }
