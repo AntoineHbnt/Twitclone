@@ -7,14 +7,6 @@ import Quote from "./Quote";
 import RetweetContent from "./Quote";
 
 const Tweet = ({ tweet, type, followingUser }) => {
-  const [loadAuthor, setLoadAuthor] = useState(true);
-
-  useEffect(() => {
-    if (loadAuthor) {
-      setLoadAuthor(false);
-    }
-  });
-
   return (
     <div className="tweet-container">
       <div className="tweet-wrapper">
@@ -27,7 +19,9 @@ const Tweet = ({ tweet, type, followingUser }) => {
                     <img src="./img/icons/tweet/origin/retweet.svg" alt="" />
                   </div>
                   <div className="label">
-                    {followingUser ? followingUser.userPseudo+" a retweeté" : "vous avez retweeté"}
+                    {followingUser
+                      ? followingUser.userPseudo + " a retweeté"
+                      : "vous avez retweeté"}
                   </div>
                 </>
               )}
