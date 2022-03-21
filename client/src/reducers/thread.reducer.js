@@ -67,7 +67,10 @@ export default function threadReducer(state = initialState, action) {
           ) {
             return {
               ...e,
-              tweet: { ...tweet, retweets: [action.payload.uid, ...tweet.retweets] },
+              tweet: {
+                ...tweet,
+                retweets: [action.payload.uid, ...tweet.retweets],
+              },
             };
           } else {
             return e;
@@ -83,15 +86,14 @@ export default function threadReducer(state = initialState, action) {
         ),
         timeline: state.timeline.map((e) => {
           const tweet = e.tweet;
-          if (
-            tweet._id == action.payload.tweetId &&
-            !tweet.retweets.includes(action.payload.uid)
-          ) {
+          if (tweet._id == action.payload.tweetId) {
             return {
               ...e,
               tweet: {
                 ...tweet,
-                retweets: [action.payload.uid, ...tweet.retweets],
+                retweets: tweet.retweets.filter((retweet) => {
+                  return retweet != action.payload.uid
+                }),
               },
             };
           } else {
