@@ -64,8 +64,9 @@ const NavBar = () => {
                 end
                 to="/messages"
                 id="message-link"
-                className="page-link"
+                className="page-link disable"
                 activeClassName="active"
+                onClick={(e) => e.preventDefault()}
               >
                 <div className="page-link-wrapper">
                   <div className="link-img"></div>
@@ -78,8 +79,9 @@ const NavBar = () => {
                 end
                 to="/bookmarks"
                 id="bookmark-link"
-                className="page-link"
+                className="page-link disable"
                 activeClassName="active"
+                onClick={(e) => e.preventDefault()}
               >
                 <div className="page-link-wrapper">
                   <div className="link-img"></div>
@@ -92,8 +94,9 @@ const NavBar = () => {
                 end
                 to="/lists"
                 id="list-link"
-                className="page-link"
+                className="page-link disable"
                 activeClassName="active"
+                onClick={(e) => e.preventDefault()}
               >
                 <div className="page-link-wrapper">
                   <div className="link-img"></div>
@@ -104,7 +107,7 @@ const NavBar = () => {
               </NavLink>
               <NavLink
                 end
-                to="/profil"
+                to={`/${userData.userAt}`}
                 id="profil-link"
                 className="page-link"
                 activeClassName="active"
@@ -116,7 +119,7 @@ const NavBar = () => {
                   </label>
                 </div>
               </NavLink>
-              <div className="page-link">
+              <div className="page-link disable">
                 <div className="page-link-wrapper">
                   <div className="link-img">
                     <img src="./img/icons/navbar/more.svg" alt="" />

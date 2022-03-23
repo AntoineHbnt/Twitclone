@@ -1,5 +1,6 @@
 @import "./log";
 @import './home';
+@import './profil';
 
 #root {
   display: flex;
@@ -7,12 +8,17 @@
   height: fit-content;
 }
 
+body{
+  width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
 .page-container {
   display: flex;
   justify-content: center;
   width: 100vw;
-  height: fit-content;
-  overflow: hidden;
+  height: 100%;
 
   header{
     flex-grow: 1;
@@ -25,16 +31,16 @@
   .main-container {
       width: fit-content;
       min-height: 100vh;
-      height: 100vh;
-      overflow: auto;
 
     .main-wrapper {
+      width: 100%;
       display: flex;
       column-gap: 2.5rem;
-      width: fit-content;
       
       .content-container{
-        width: 37.5rem;
+        width: 100%;
+        height: max-content;
+        max-width: 37.5rem;
         min-height: 100vh;
         box-sizing: border-box;
         border-left: 1px solid rgb(239, 243, 244);

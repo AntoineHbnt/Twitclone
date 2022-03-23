@@ -3,6 +3,11 @@ $color-2: #ffffff;
 $color-3: #0f1419;
 $color-4: rgb(83, 100, 113);
 
+.disable {
+  cursor: default !important;
+  opacity: 20%;
+}
+
 .loading {
   width: 100%;
   display: flex;
