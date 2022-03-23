@@ -33,3 +33,8 @@ export const dateTweetParser = (time) => {
 
   return new Date(timestamp).toLocaleDateString("fr-FR", options);
 };
+
+export const dateParser = (time, options) => {
+  const timestamp = Date.parse(time);
+  return new Date(timestamp).toLocaleDateString("fr-FR", options);
+}

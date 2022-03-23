@@ -1,0 +1,51 @@
+.username {
+  margin: 0.25rem 0 0.75rem 0;
+  .user-pseudo {
+    font-weight: bold;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+  .user-at {
+    line-height: 1.25rem;
+    word-wrap: normal;
+    color: #536471;
+  }
+}
+
+.description {
+  line-height: 1.25rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.about-user {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+
+  .about-user-element {
+    margin-right: 0.75rem;
+    display: flex;
+    align-items: center;
+    color: #536471;
+    font-size: 0.9rem;
+
+    svg {
+      margin-right: 0.25rem;
+      height: 1.25rem;
+      fill: #536471;
+    }
+  }
+}
+
+.follow-counter {
+  display: flex;
+  column-gap: 1.25rem;
+  color: #536471;
+  font-size: 0.9rem;
+
+  b {
+    color: $color-3;
+    font-weight: bold;
+  }
+}

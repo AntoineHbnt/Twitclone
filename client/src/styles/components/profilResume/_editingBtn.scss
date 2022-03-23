@@ -1,0 +1,25 @@
+.picture-editing-row {
+  .editing-profil-btn-container {
+    .editing-profil-btn-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 2.25rem;
+      border-radius: 9999px;
+      padding: 0 1rem 0 1rem;
+      margin-bottom: 0.75rem;
+      border: 1px solid rgb(207, 217, 222);
+      cursor: pointer;
+      transition: .1s ease-in-out;
+
+      span {
+        line-height: 1.25rem;
+        font-weight: 500;
+      }
+
+      &:hover{
+          background-color: rgba(15,20,25,0.1);
+      }
+    }
+  }
+}

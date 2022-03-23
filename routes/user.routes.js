@@ -14,6 +14,7 @@ router.put("/:id", authController.changePassword);
 //user db
 router.get("/", userController.getAllUsers);
 router.get("/:id", userController.getUser);
+router.get("/at/:userAt", userController.getUserByUserAt);
 router.put("/:id", userController.updateUser);
 router.delete("/:id", userController.deleteUser);
 
