@@ -1,6 +1,6 @@
 @import "./log";
-@import './home';
-@import './profil';
+@import "./home";
+@import "./profil";
 
 #root {
   display: flex;
@@ -8,7 +8,7 @@
   height: fit-content;
 }
 
-body{
+body {
   width: 100%;
   height: 100vh;
   overflow-y: scroll;
@@ -16,36 +16,38 @@ body{
 
 .page-container {
   display: flex;
-  justify-content: center;
-  width: 100vw;
   height: 100%;
 
-  header{
-    flex-grow: 1;
-  }
-
-  main{
-    flex-grow: 2;
-  }
-
   .main-container {
-      width: fit-content;
-      min-height: 100vh;
+    min-height: 100vh;
 
     .main-wrapper {
       width: 100%;
       display: flex;
       column-gap: 2.5rem;
-      
-      .content-container{
+
+      .content-container {
         width: 100%;
-        height: max-content;
         max-width: 37.5rem;
         min-height: 100vh;
         box-sizing: border-box;
         border-left: 1px solid rgb(239, 243, 244);
         border-right: 1px solid rgb(239, 243, 244);
+
+        .page-content-wrapper {
+          width: 100%;
+          min-height: 100vh;
+          display: flex;
+          align-self: flex-start;
+          flex-direction: column;
+        }
       }
     }
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .content-container{
+    width: 37.5rem !important;
   }
 }
