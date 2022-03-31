@@ -6,7 +6,6 @@ import Home from "../../pages/Home";
 import Lists from "../../pages/Lists";
 import Notifications from "../../pages/Notifications";
 import Profil from "../../pages/Profil";
-import NavBar from "../NavBar";
 
 const index = () => {
   return (
@@ -16,7 +15,9 @@ const index = () => {
       <Route path="/notifications" exact element={<Notifications />} />
       <Route path="/bookmarks" exact element={<Bookmarks />} />
       <Route path="/lists" exact element={<Lists />} />
-      <Route path="/:id" exact element={<Profil />} />
+      <Route path="/:id" element={<Profil />}> 
+        <Route path="/:id/:type" element={<Profil />}></Route>
+      </Route>
       <Route path="/" exact element={<Home/>} />
 
     </Routes>

@@ -1,0 +1,46 @@
+.profil-content-menu-item-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: auto;
+  height: 100%;
+  padding: 0 1rem 0 1rem;
+  transition: .1s ease-in-out;
+
+  &:hover {
+    background-color: rgba(15, 20, 25, 0.1);
+  }
+
+  a{
+    text-decoration: none;
+  }
+
+  .profil-content-menu-item-wrapper {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    .label {
+      color: $color-4;
+      font-weight: 500;
+      padding: 1rem 0 1rem 0;
+    }
+
+    &.active {
+      .label {
+        color: $color-3;
+      }
+
+      .active-line{
+          height: 4px;
+          width: 100%;
+          min-width: 3.5rem;
+          margin-top: -4px;
+          border-radius: 9999px;
+          background-color: $color-1;
+      }
+    }
+  }
+}
