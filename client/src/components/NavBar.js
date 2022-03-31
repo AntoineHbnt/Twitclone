@@ -12,7 +12,7 @@ const NavBar = () => {
           <div className="logo-container">
             <NavLink end to="/home" activeClassName="active">
               <div className="logo">
-                <img src="./img/icons/bird/twi-b-bird.svg" alt="home" />
+                <img src="../img/icons/bird/twi-b-bird.svg" alt="home" />
               </div>
             </NavLink>
           </div>
@@ -134,7 +134,7 @@ const NavBar = () => {
           <div className="tweet-button-container">
             <div className="tweet-button-wrapper">
               <div className="tweet-button-logo">
-                <img src="./img/icons/navbar/tweet.svg" alt="" />
+                <img src="../img/icons/navbar/tweet.svg" alt="" />
               </div>
               <div className="tweet-button-label">
                 <span>Tweeter</span>
