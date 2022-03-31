@@ -2,7 +2,7 @@ import React from "react";
 
 const ShareButton = ({tweetId, value}) => {
   return (
-    <div className="interaction blue share">
+    <div className="interaction blue share disable">
       <div className="logo">
         <svg
           viewBox="0 0 24 24"

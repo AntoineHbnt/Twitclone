@@ -2,7 +2,7 @@ import React from 'react';
 
 const CommentButton = ({tweetId, value}) => {
     return (
-        <div className="interaction blue comment">
+        <div className="interaction blue comment disable">
           <div className="logo">
             <svg
               viewBox="0 0 24 24"
