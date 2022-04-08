@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server"
+    "run": "nodemon server",
+    "start": "vercel dev",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "keywords": [],
   "author": "",
@@ -25,5 +29,8 @@
     "nodemon": "^2.0.15",
     "validator": "^13.7.0",
     "xhr2": "^0.2.1"
+  },
+  "devDependencies": {
+    "@vercel/node": "^1.14.0"
   }
 }
