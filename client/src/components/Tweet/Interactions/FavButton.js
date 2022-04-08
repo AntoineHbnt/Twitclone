@@ -8,23 +8,27 @@ const FavButton = ({ tweetId, value }) => {
   const userData = useSelector((state) => state.userReducer);
   const threadData = useSelector((state) => state.threadReducer);
 
-  const [isActive, setIsActive] = useState(threadData.userFavs.includes(tweetId));
+  const [isActive, setIsActive] = useState(
+    threadData.userFavs.includes(tweetId)
+  );
 
   const handleFav = async () => {
     isActive
       ? dispatch(unfavTweet(userData._id, tweetId))
       : dispatch(favTweet(userData._id, tweetId));
-
   };
 
   useEffect(() => {
-    setIsActive(isActive => threadData.userFavs.includes(tweetId))
-  }, [threadData.userFavs])
+    setIsActive((isActive) => threadData.userFavs.includes(tweetId));
+  }, [threadData.userFavs]);
 
   return (
     <div
       className={"interaction fav" + (isActive ? " active" : "")}
-      onClick={() => handleFav()}
+      onClick={(e) => {
+        e.preventDefault();
+        handleFav();
+      }}
     >
       <div className="logo">
         <svg

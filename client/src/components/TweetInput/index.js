@@ -17,7 +17,7 @@ import MediaPreview from "./MediaPreview";
 import TextInput from "./TextInput";
 import TweetOptions from "./TweetOptions";
 
-const TweetInput = () => {
+const TweetInput = ({type}) => {
   //Stores data
   const userData = useSelector((state) => state.userReducer);
   const tweetInputData = useSelector((state) => state.tweetInputReducer);
@@ -52,7 +52,7 @@ const TweetInput = () => {
     
     data.append("message", message);
     data.append("audience", audience);
-    data.append("type", "tweet");
+    data.append("type", !isEmpty(media) ? "media" : "tweet");
     return data;
   };
 
@@ -60,7 +60,7 @@ const TweetInput = () => {
     setSending(true);
     const data = handleTweetData();
     await dispatch(addTweet(userData._id, data));
-    await dispatch(getThread(userData._id));
+    await dispatch(getThread(userData._id, "timeline"));
     cancelTweet();
     setSending(false);
   };

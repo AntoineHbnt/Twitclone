@@ -6,11 +6,11 @@ export const UNFAV_TWEET = "UNFAV_TWEET";
 export const RETWEET_TWEET = "RETWEET_TWEET";
 export const UNRETWEET_TWEET = "UNRETWEET_TWEET";
 
-export const getThread = (uid) => {
+export const getThread = (uid, type) => {
   return (dispatch) => {
     return axios({
       method: "get",
-      url: `${process.env.REACT_APP_API_URL}api/tweet/thread/${uid}`,
+      url: `${process.env.REACT_APP_API_URL}api/tweet/thread/${uid}/${type}`,
       withCredentials: true,
     }).then((res) => {
         dispatch({type: GET_THREAD, payload: res.data});

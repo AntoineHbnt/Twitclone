@@ -7,6 +7,8 @@ import TweetInput from "../components/TweetInput";
 import Log from "./Log";
 
 const Home = () => {
+  const uid = useContext(UidContext);
+
   return (
     <main className="main-container">
       <div className="main-wrapper">
@@ -32,7 +34,7 @@ const Home = () => {
               <div className="home-content-wrapper">
                 <TweetInput />
                 <div className="break-line"></div>
-                <Thread />
+                <Thread type="home" uid={uid} />
               </div>
             </div>
           </div>

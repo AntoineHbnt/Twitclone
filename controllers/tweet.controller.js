@@ -4,6 +4,32 @@ const ObjectId = require("mongoose").Types.ObjectId;
 const { uploadErrors } = require("../utils/error.utils");
 const { uploadFiles } = require("../utils/upload.utils");
 
+//tweetController utils
+
+const filteredTweets = (tweetsArray) => {
+  const idArray = [];
+  return tweetsArray.filter((elem) => {
+    if (
+      !idArray.includes(elem.tweet._id.toString()) ||
+      elem.type == "retweet"
+    ) {
+      idArray.push(elem.tweet._id.toString());
+      return true;
+    }
+
+    return false;
+  });
+};
+
+const sortTweets = (tweetsArray) => {
+  return filteredTweets(tweetsArray).sort((a, b) => {
+    if (a.timestamp < b.timestamp) return 1;
+    if (a.timestamp > b.timestamp) return -1;
+    return 0;
+  });
+};
+
+//tweet db
 module.exports.createTweet = async (req, res) => {
   let files = req.files;
   let filepaths = [];
@@ -30,7 +56,11 @@ module.exports.createTweet = async (req, res) => {
       req.params.id,
       {
         $addToSet: {
-          tweets: {id: tweet._id, type: "tweet", timestamp: tweet.createdAt},
+          tweets: {
+            id: tweet._id,
+            type: tweet.pictures.length > 0 ? "media" : "tweet",
+            timestamp: tweet.createdAt,
+          },
         },
       },
       { new: true, upsert: true }
@@ -64,40 +94,15 @@ module.exports.getThread = async (req, res) => {
   if (!ObjectId.isValid(req.params.id))
     return res.status(404).send("Unknown ID : " + req.params.id);
 
-  const filteredTweets = (tweetsArray) => {
-    const idArray = [];
-    return tweetsArray.filter((elem) => {
-      if (
-        !idArray.includes(elem.tweet._id.toString()) ||
-        elem.type == "retweet"
-      ) {
-        idArray.push(elem.tweet._id.toString());
-        return true;
-      }
-
-      return false;
-    });
-  };
-
-  const sortTweets = (tweetsArray) => {
-    return filteredTweets(tweetsArray).sort((a, b) => {
-      if (a.timestamp < b.timestamp) return 1;
-      if (a.timestamp > b.timestamp) return -1;
-      return 0;
-    });
-  };
-
   const handleTweets = async () => {
     const user = await UserModel.findById(req.params.id);
     const timeline = [];
     const userFavs = [];
     const userRetweets = [];
 
-    
-
     const getTweets = async (tweetList) => {
       await Promise.all(
-        tweetList.map(async ({id, type, timestamp}) => {
+        tweetList.map(async ({ id, type, timestamp }) => {
           tweet = await TweetModel.findById(id).populate("posterUser");
           if (tweet) timeline.push({ tweet, type, timestamp });
           if (tweet.favs.includes(user._id) && !userFavs.includes(tweet._id))
@@ -106,24 +111,24 @@ module.exports.getThread = async (req, res) => {
         })
       );
     };
-    
 
+    const getFollowingUserTweets = async () => {
+      await Promise.all(
+        user.following.map(async (followingId) => {
+          followingUser = await UserModel.findById(followingId);
+
+          await getTweets(followingUser.tweets);
+          await getTweets(followingUser.retweets);
+          await getTweets(followingUser.favs);
+        })
+      );
+    };
 
     await getTweets(user.tweets);
     await getTweets(user.retweets);
 
-    await Promise.all(
-
-  
-      user.following.map(async (followingId) => {
-        followingUser = await UserModel.findById(followingId);
-        
-        await getTweets(followingUser.retweets);
-        await getTweets(followingUser.retweets);
-        await getTweets(followingUser.favs);
-
-      })
-    );
+    //if(req.params.type == "profil") await getTweets(user.favs);
+    if(req.params.type == "home") await getFollowingUserTweets();
 
     return {
       timeline: sortTweets(timeline),
@@ -136,21 +141,12 @@ module.exports.getThread = async (req, res) => {
     const thread = await handleTweets();
     return res.status(200).send(thread);
   } catch (err) {
-    console.log({err: err.message});
+    console.log({ err: err.message });
   }
 };
 
-module.exports.deleteTweet = async (req, res) => {
-  if (!ObjectId.isValid(req.params.id))
-    return res.status(404).send("Unknown ID : " + req.params.id);
 
-  try {
-    await TweetModel.findByIdAndDelete(req.params.id);
-    return res.status(200).send("succefuly delete");
-  } catch (err) {
-    return res.status(400).send(err);
-  }
-};
+//tweet action
 
 module.exports.fav = async (req, res) => {
   const uid = req.body.uid;
@@ -179,7 +175,7 @@ module.exports.fav = async (req, res) => {
       uid,
       {
         $addToSet: {
-          favs: {id: tweetId, type: "fav", timestamp: tweet.createdAt},
+          favs: { id: tweetId, type: "fav", timestamp: tweet.createdAt },
         },
       },
       { new: true }
@@ -214,7 +210,7 @@ module.exports.unfav = async (req, res) => {
       uid,
       {
         $pull: {
-          favs: {id: tweetId},
+          favs: { id: tweetId },
         },
       },
       { new: true }
@@ -251,13 +247,11 @@ module.exports.retweet = async (req, res) => {
       uid,
       {
         $addToSet: {
-          retweets: {id: tweetId, type: "retweet", timestamp: Date.now()},
+          retweets: { id: tweetId, type: "retweet", timestamp: Date.now() },
         },
       },
       { new: true }
     );
-
-    console.log(user);
   } catch (err) {
     console.log(err);
   }
@@ -288,12 +282,24 @@ module.exports.unRetweet = async (req, res) => {
       uid,
       {
         $pull: {
-          retweets: {id: tweetId},
+          retweets: { id: tweetId },
         },
       },
       { new: true }
     );
   } catch (err) {
     console.log(err);
+  }
+};
+
+module.exports.deleteTweet = async (req, res) => {
+  if (!ObjectId.isValid(req.params.id))
+    return res.status(404).send("Unknown ID : " + req.params.id);
+
+  try {
+    await TweetModel.findByIdAndDelete(req.params.id);
+    return res.status(200).send("succefuly delete");
+  } catch (err) {
+    return res.status(400).send(err);
   }
 };

@@ -72,7 +72,7 @@ const Tweet = ({ tweet, type, followingUser }) => {
                 </div>
               </div>
               <div className="bottom">
-                {(type === "tweet" || type === "fav" || type === "retweet") && (
+                {(type !== "quote") && (
                   <div className="tweet">
                     <span>{tweet.message}</span>
                     <MediaContent medias={tweet.pictures} />

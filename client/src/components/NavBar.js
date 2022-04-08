@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 const NavBar = () => {
   const userData = useSelector(state => state.userReducer);
@@ -50,7 +50,7 @@ const NavBar = () => {
                 end
                 to="/notifications"
                 id="notification-link"
-                className="page-link"
+                className="page-link disable"
                 activeClassName="active"
               >
                 <div className="page-link-wrapper">

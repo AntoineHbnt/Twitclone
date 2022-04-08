@@ -12,5 +12,5 @@ export default combineReducers({
   tweetsReducer,
   tweetInputReducer,
   usersReducer,
-  errorsReducer
+  errorsReducer,
 });

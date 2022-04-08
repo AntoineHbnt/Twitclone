@@ -1,0 +1,15 @@
+@import "./profilListItem";
+
+.profil-list-container {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 1rem;
+
+  a {
+      text-decoration: none;
+    .profil-list-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
