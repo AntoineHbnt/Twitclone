@@ -20,7 +20,7 @@ export default function threadReducer(state = initialState, action) {
         timeline: state.timeline.map((e) => {
           const tweet = e.tweet;
           if (
-            tweet._id == action.payload.tweetId &&
+            tweet._id === action.payload.tweetId &&
             !tweet.favs.includes(action.payload.uid)
           ) {
             return {
@@ -36,16 +36,16 @@ export default function threadReducer(state = initialState, action) {
     case UNFAV_TWEET:
       return {
         ...state,
-        userFavs: state.userFavs.filter((fav) => fav != action.payload.tweetId),
+        userFavs: state.userFavs.filter((fav) => fav !== action.payload.tweetId),
         timeline: state.timeline.map((e) => {
           const tweet = e.tweet;
-          if (tweet._id == action.payload.tweetId) {
+          if (tweet._id === action.payload.tweetId) {
             return {
               ...e,
               tweet: {
                 ...tweet,
                 favs: tweet.favs.filter((fav) => {
-                  return fav != action.payload.uid;
+                  return fav !== action.payload.uid;
                 }),
               },
             };
@@ -62,7 +62,7 @@ export default function threadReducer(state = initialState, action) {
         timeline: state.timeline.map((e) => {
           const tweet = e.tweet;
           if (
-            tweet._id == action.payload.tweetId &&
+            tweet._id === action.payload.tweetId &&
             !tweet.retweets.includes(action.payload.uid)
           ) {
             return {
@@ -82,17 +82,17 @@ export default function threadReducer(state = initialState, action) {
       return {
         ...state,
         userRetweets: state.userRetweets.filter(
-          (retweet) => retweet != action.payload.tweetId
+          (retweet) => retweet !== action.payload.tweetId
         ),
         timeline: state.timeline.map((e) => {
           const tweet = e.tweet;
-          if (tweet._id == action.payload.tweetId) {
+          if (tweet._id === action.payload.tweetId) {
             return {
               ...e,
               tweet: {
                 ...tweet,
                 retweets: tweet.retweets.filter((retweet) => {
-                  return retweet != action.payload.uid
+                  return retweet !== action.payload.uid
                 }),
               },
             };

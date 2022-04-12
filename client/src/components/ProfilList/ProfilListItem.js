@@ -2,9 +2,6 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const ProfilListItem = ({ userData }) => {
-  useEffect(() => {
-    console.log(userData);
-  });
 
   return (
     <div className="profil-list-item">

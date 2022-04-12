@@ -11,7 +11,7 @@ const filteredTweets = (tweetsArray) => {
   return tweetsArray.filter((elem) => {
     if (
       !idArray.includes(elem.tweet._id.toString()) ||
-      elem.type == "retweet"
+      elem.type === "retweet"
     ) {
       idArray.push(elem.tweet._id.toString());
       return true;
@@ -126,9 +126,10 @@ module.exports.getThread = async (req, res) => {
 
     await getTweets(user.tweets);
     await getTweets(user.retweets);
+   /* await getTweets(user.favs); */
 
-    //if(req.params.type == "profil") await getTweets(user.favs);
-    if(req.params.type == "home") await getFollowingUserTweets();
+    //if(req.params.type === "profil") await getTweets(user.favs);
+    if(req.params.type === "home") await getFollowingUserTweets();
 
     return {
       timeline: sortTweets(timeline),

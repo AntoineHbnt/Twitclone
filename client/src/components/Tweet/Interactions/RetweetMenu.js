@@ -7,7 +7,7 @@ const RetweetMenu = ({ closeMenu, tweetId }) => {
   const userData = useSelector((state) => state.userReducer);
   const threadData = useSelector((state) => state.threadReducer);
   
-  const [isActive, setIsActive] = useState(threadData.userRetweets.includes(tweetId))
+  const [isActive, setIsActive] = useState(userData.retweets.find((retweet) => {return retweet.id === tweetId}) !== undefined)
 
   const handleRetweet = () => {
     threadData.userRetweets.includes(tweetId)
@@ -18,8 +18,8 @@ const RetweetMenu = ({ closeMenu, tweetId }) => {
   const handleQuote = () => {};
 
   useEffect(() => {
-    setIsActive(threadData.userRetweets.includes(tweetId))
-  },[threadData])
+    setIsActive(userData.retweets.find((retweet) => retweet.id === tweetId) !== undefined)
+  },[userData.retweets, tweetId])
 
 
   return (

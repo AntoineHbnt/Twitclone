@@ -23,7 +23,7 @@ const ProfilResume = ({ user }) => {
                 </div>
               </div>
 
-              {user && (user._id == uid ? (
+              {user && (user._id === uid ? (
                 <div className="editing-profil-btn-container">
                   <div className="editing-profil-btn-wrapper">
                     <span>Éditer le profil</span>

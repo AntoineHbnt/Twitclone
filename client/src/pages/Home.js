@@ -2,9 +2,7 @@ import React, { useContext } from "react";
 import { UidContext } from "../components/AppContext";
 import RightBar from "../components/RightBar";
 import Thread from "../components/Thread";
-import Tweet from "../components/Tweet";
 import TweetInput from "../components/TweetInput";
-import Log from "./Log";
 
 const Home = () => {
   const uid = useContext(UidContext);

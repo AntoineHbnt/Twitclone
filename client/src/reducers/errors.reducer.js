@@ -1,5 +1,4 @@
 import { ADD_TWEET_ERRORS } from "../actions/error.action";
-import { GET_TWEET_ERRORS } from "../actions/tweets.actions";
 
 const initialState = {tweetError: ""};
 

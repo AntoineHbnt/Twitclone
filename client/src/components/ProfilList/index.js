@@ -18,7 +18,7 @@ const ProfilList = ({filter}) => {
     return (
         <div className="profil-list-container">
             <div className="profil-list-wrapper">
-                {usersList.length != 0 && usersList.map((elem, index) => {
+                {usersList.length !== 0 && usersList.map((elem, index) => {
                     return <ProfilListItem key={index} userData={elem} />
                 })}
             </div>

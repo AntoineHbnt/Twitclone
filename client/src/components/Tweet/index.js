@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 import { dateTweetParser } from "../Utils";
 import Interaction from "./Interactions";
 import MediaContent from "./MediaContent";
 import Quote from "./Quote";
-import RetweetContent from "./Quote";
+import { Link } from "react-router-dom";
 
 const Tweet = ({ tweet, type, followingUser }) => {
   return (
@@ -13,7 +12,7 @@ const Tweet = ({ tweet, type, followingUser }) => {
         <div className="tweet-origin">
           <div className="tweet-origin-container">
             <div className="tweet-origin-wrapper">
-              {type == "retweet" && (
+              {type === "retweet" && (
                 <>
                   <div className="logo">
                     <img src="./img/icons/tweet/origin/retweet.svg" alt="" />
@@ -25,7 +24,7 @@ const Tweet = ({ tweet, type, followingUser }) => {
                   </div>
                 </>
               )}
-              {type == "fav" && (
+              {type === "fav" && (
                 <>
                   <div className="logo">
                     <img src="./img/icons/tweet/origin/follow-fav.svg" alt="" />
@@ -39,7 +38,9 @@ const Tweet = ({ tweet, type, followingUser }) => {
         <div className="tweet-content-container">
           <div className="tweet-content-wrapper">
             <div className="picture">
-              <img src={tweet.posterUser.picture} alt="" />
+              <Link to={`/${tweet.posterUser.userAt}`}>
+                <img src={tweet.posterUser.picture} alt="" />
+              </Link>
             </div>
             <div className="content-wrapper">
               <div className="top">
@@ -48,7 +49,9 @@ const Tweet = ({ tweet, type, followingUser }) => {
                     <div className="author-id">
                       <div className="pseudo-wrapper">
                         <div className="pseudo">
-                          <span>{tweet.posterUser.userPseudo}</span>
+                          <Link to={`/${tweet.posterUser.userAt}`}>
+                            <span>{tweet.posterUser.userPseudo}</span>
+                          </Link>
                         </div>
                         {/* 
                         TODO:handle certified account
@@ -72,7 +75,7 @@ const Tweet = ({ tweet, type, followingUser }) => {
                 </div>
               </div>
               <div className="bottom">
-                {(type !== "quote") && (
+                {type !== "quote" && (
                   <div className="tweet">
                     <span>{tweet.message}</span>
                     <MediaContent medias={tweet.pictures} />

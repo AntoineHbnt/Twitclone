@@ -5,14 +5,13 @@ import RetweetMenu from "./RetweetMenu";
 const RetweetButton = ({ tweetId, value }) => {
   const userData = useSelector(state => state.userReducer);
   const threadData = useSelector(state => state.threadReducer);
-  const retweets = userData.retweets
 
   const [showRetweetMenu, setShowRetweetMenu] = useState(false);
   const [isActive, setIsActive] = useState(threadData.userRetweets.includes(tweetId))
 
   useEffect(() => {
-    setIsActive(threadData.userRetweets.includes(tweetId))
-  },[threadData.userRetweets])
+    setIsActive(userData.retweets.find((retweet) => retweet.id === tweetId) !== undefined)
+  },[userData.retweets, tweetId])
 
   return (
     <div className={"interaction green retweet"+(isActive ? " active" : "")} onClick={() => setShowRetweetMenu(showRetweetMenu => !showRetweetMenu)}>

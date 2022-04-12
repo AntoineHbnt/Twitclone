@@ -7,7 +7,6 @@ import { createStore, applyMiddleware } from "redux";
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import rootReducer from './reducers'
-import { getThread } from "./actions/thread.actions";
 import { getUsers } from "./actions/users.actions";
 import { getTweets } from "./actions/tweets.actions";
 

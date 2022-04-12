@@ -1,15 +1,15 @@
-@import './interactions/index';
-@import './mediaCard';
+@import "./interactions/index";
+@import "./mediaCard";
 
-.tweet-list{
+.tweet-list {
   margin-bottom: 10rem;
-  animation: showElement 1s ;
+  animation: showElement 1s;
 
   @keyframes showElement {
-    0%{
+    0% {
       opacity: 0;
     }
-    100%{
+    100% {
       opacity: 100%;
     }
   }
@@ -22,8 +22,8 @@
   cursor: pointer;
   box-sizing: border-box;
 
-  &:hover{
-    background-color: rgba(0,0,0,0.03);
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.03);
   }
 
   .tweet-wrapper {
@@ -85,8 +85,10 @@
                   display: flex;
                   .pseudo-wrapper {
                     display: flex;
-                    font-weight: bold;
-                    color: #0f1419;
+                    a {
+                      font-weight: bold;
+                      color: #0f1419;
+                    }
                   }
                   .user-at {
                     margin-left: 0.25rem;
@@ -107,7 +109,6 @@
               line-height: 1.25rem;
               overflow-wrap: break-word;
             }
-            
           }
         }
       }

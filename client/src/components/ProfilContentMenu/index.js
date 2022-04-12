@@ -7,9 +7,9 @@ const ProfilContentMenu = ({userAt, type}) => {
     <div className="profil-content-menu-container">
       <div className="profil-content-menu-wrapper">
         <ProfilContentItem label="Tweets" link={`/${userAt}`} active={!type} />
-        <ProfilContentItem label="Tweets et réponses" link={`/${userAt}/with_replies`} active={type == "with_replies"} />
-        <ProfilContentItem label="Médias" link={`/${userAt}/media`} active={type == "media"} />
-        <ProfilContentItem label="J'aime" link={`/${userAt}/likes`} active={type == "likes"} />
+        <ProfilContentItem label="Tweets et réponses" link={`/${userAt}/with_replies`} active={type === "with_replies"} />
+        <ProfilContentItem label="Médias" link={`/${userAt}/media`} active={type === "media"} />
+        <ProfilContentItem label="J'aime" link={`/${userAt}/likes`} active={type === "likes"} />
       </div>
     </div>
   )
