@@ -7,13 +7,21 @@ const userRoutes = require("./routes/user.routes");
 const tweetRoutes = require("./routes/tweet.routes");
 const notificationRoutes = require("./routes/notification.routes");
 const { checkUser, requireAuth } = require("./middleware/auth.middleware");
+const ngrok = require('ngrok');
 
 require("dotenv").config({ path: "./config/.env" });
 require("./config/db");
 require("./config/firebase");
+
 global.XMLHttpRequest = require("xhr2");
 
 const app = express();
+
+(async function() {
+  const url = await ngrok.connect();
+  console.log(url);
+})();
+
 
 //Cors policy
 const corsOptions = {
