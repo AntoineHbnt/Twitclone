@@ -52,7 +52,7 @@ const FirstStep = ({ connectId, setconnectId, goNext, setStep }) => {
         />
         <Button label="Mot de passe oublié ?" textWeight="bold" onClick={() => setStep(3)}/>
         <span>
-          Vous n'avez pas de compte ? <a href="/">Inscrivez-vous</a>
+          Vous n'avez pas de compte ? <a  >Inscrivez-vous</a>
         </span>
       </div>
     </div>

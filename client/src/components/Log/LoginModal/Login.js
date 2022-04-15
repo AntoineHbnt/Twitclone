@@ -38,7 +38,7 @@ const Login = ({ connectId, password, setPassword, login, errors }) => {
           />
         </form>
         <span>
-          Vous n'avez pas de compte ? <a href="/">Inscrivez-vous</a>
+          Vous n'avez pas de compte ? <a  >Inscrivez-vous</a>
         </span>
       </div>
     </div>

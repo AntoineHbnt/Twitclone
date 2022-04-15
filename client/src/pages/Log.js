@@ -3,8 +3,6 @@ import RegisterModal from "../components/Log/RegisterModal";
 import LoginModal from '../components/Log/LoginModal'
 import Button from "../components/Objects/Button";
 import Separator from "../components/Objects/Separator";
-import { Link } from "react-router-dom";
-
 const Log = () => {
   const [registerModal, setRegisterModal] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
@@ -48,9 +46,9 @@ const Log = () => {
 
             <span className="conditions">
               En vous inscrivant, vous acceptez les{" "}
-              <Link>Conditions d'Utilisation</Link> et la{" "}
-              <Link>Politique de Confidentialité</Link>, incluant l'
-              <Link>Utilisation de Cookies</Link>.
+              <a>Conditions d'Utilisation</a> et la{" "}
+              <a>Politique de Confidentialité</a>, incluant l'
+              <a>Utilisation de Cookies</a>.
             </span>
             <div className="login">
               <div className="text">
